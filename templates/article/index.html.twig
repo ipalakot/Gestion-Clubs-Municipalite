@@ -2,26 +2,44 @@
 
 
 {% block body %}
-    {% include("menus/navigation.html.twig") %}
-    {% include("headers/header.html.twig") %}
+    {% include("menus/navigation_admin.html.twig") %}
+    {% include("headers/header_admin.html.twig") %}
 
 <div class="container">
-                <div class="row" >
-            <div class="col-3">
-        {%for article in articles  %}
+    <!-- Article main content -->
+	<article class="col-md-12 maincontent">
+        <div class="container">
+			<div class="row">	
+    <h1>Liste des Articles</h1>
 
-                <br><h3>titre : {{article.titre}} </h3> 
-                <br>{{article.auteur}} 
-                <br>{{article.resume}} 
-                
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+               {#  <th>Image</th> #}
+                <th>Titre</th>
+                <th>Auteurs</th> 
+                <th>Resumé</th>
+            </tr>
+        </thead>
 
-        {% endfor%}    
-                    </div
-            </div>  
-    </div>
+        <tbody>
+            {% for article in articles %}
+                <tr>
+                    <td>{{ article.id }}</td>
+                    <td>{{ article.titre }}</td>
+                    <td>{{ article.auteur}}</td>
+                    <td>{{ article.resume}}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">Aucun article pour lemoment !</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
+</div></div></div>
 
-{% endblock %}
-
-{% block footer %} 
+<br><br>
 {% endblock%}
