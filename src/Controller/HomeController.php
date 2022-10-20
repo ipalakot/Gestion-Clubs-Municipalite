@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
+use App\Repository\ArticleRepository;
+
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,17 +15,14 @@ class HomeController extends AbstractController
     /**
      * @Route("/home", name="app_home")
      */
-    public function index(): Response
+    public function index(ArticleRepository $articlesRepository): Response
     {
-        return $this->render(
-            'home/index.html.twig',
-            [
-                'controller_name' => 'HomeController',
-                'num_matricule'=>'2022-23',
-                'note_recu'=>'12/20',
-            ]
-        );
+        return $this->render('home/index.html.twig', [
+
+            'articles' => $articlesRepository->findAll(),
+        ]);
     }
+
 
     /**
      * @Route("/apropos", name="app_apropos")

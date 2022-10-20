@@ -8,6 +8,9 @@ use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
+
 use Symfony\Component\Routing\Annotation\Route;
 
 // use Doctrine\Common\Persistance\ObjectManager;
@@ -32,12 +35,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
     /**
-     * @Route("/article/17", name="app_article_affichage")
+     * @Route("/article/{id}", name="app_article_affichage")
      * 
      */
-    public function affichage()
+    public function affichage($id)
     {    
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $articles= $repo->find($id);
+        
         return $this->render('article/affichage.html.twig', [
+
+            'articles'=>$articles
 
         ]);
 

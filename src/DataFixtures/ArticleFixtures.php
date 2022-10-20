@@ -14,14 +14,20 @@ class ArticleFixtures extends Fixture
     public function load(ObjectManager $manager): void
 
     {
-        for ($i=0; $i<20; $i++){
+        // Utiliser la Bibliotheque Fakar
+        $faker = \Faker\Factory::create('fr_FR');
+
+        
+        // Creation de 10 Article
+        for ($i=0; $i<12; $i++){
             $article = new Article();
-            $article->setTitre(('Titre de larticle'))
-                    ->setAuteur('Auteur Article')
-                    ->setImage('image')
-                    ->setResume('What is Lorem Ipsum?')
-                    ->setContenu('What is Lorem Ipsum?What is Lorem Ipsum?');
-            $manager->persist($article);
+            $article->setTitre($faker->sentence($nb = 5, $asText = false))
+                    ->setAuteur($faker->name)
+                    ->setImage($faker->imageUrl(350, 350))
+                    ->setResume($faker->text())
+                    ->setContenu($faker->realText($maxNbChars = 2000, $indexSize = 2));
+            
+                $manager->persist($article);
         }
 
     $manager->flush();

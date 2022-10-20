@@ -1,41 +1,36 @@
 {% extends 'base.html.twig' %}
 
 
+
+
+
+
 {% block body %}
+    {% include("menus/navigation_admin.html.twig") %}
+{% include("headers/header.html.twig") %}
 
-        {% include("menus/navigation.html.twig") %}
-        {% include("headers/header.html.twig") %}
 
 
-<div class ="col-lg-12 bg-light">
-<div class ="container-sm">
 
- <br>
-  <br>
-  <h3> C’est quoi lorem ipsum ? </h3>
- 
+     
+<div class="container">
+<article>
+            <h2> {{articles.titre}}</h2>
 
-L’expression « Lorem ipsum dolor sit amet consectetuer » apparaît régulièrement sur les sites web ou sur les templates de page internet. Si vous ne parlez pas latin, vous pensez certainement qu’il y a une signification derrière cette phrase. Et pourtant, il n’en est rien ! Il s’agit de lorem ipsum, autrement dit, un faux texte.
+             <div class = "content">
+                <img src="https://via.placeholder.com/300x200" alt="">
 
-Le lorem ipsum comprend plusieurs phrases et mots de longueurs variables. Ainsi, cela reproduit à l’identique un contenu réel, à la différence que celui-ci n’a aucun sens.
-
-Il est possible de créer un texte lorem ipsum à l’aide de ce générateur. Vous pouvez choisir le nombre de mots, de phrases ou encore de paragraphes.
-
- <br>  <br>
-
-<h3> À quoi ça sert ?</h3>
- 
-
-À l’origine, cette technique était utilisée en imprimerie afin de vérifier la mise en page. Aujourd’hui, le lorem ipsum est toujours utilisé pour la version papier, mais aussi et surtout, sur le web. C’est ainsi que vous verrez régulièrement des textes lorem ipsum sur les templates. Cela permet ainsi de déterminer la mise en page du texte sur un site web ou sur mobile. L’objectif étant de définir les breakpoints pour obtenir un site responsive design. En outre, le lorem ipsum peut aussi être utilisé pour déterminer les règles de la charte graphique à travers sa typographie.
-
-Ainsi, pour créer sa page, il suffit de remplacer le contenu lorem ipsum par le contenu que vous souhaitez ajouter. Il n’y a pas besoin de refaire la mise en page à chaque fois, puisqu’elle est automatiquement intégrée au template. L’avantage de l’utilisation du latin est de permettre à l’utilisateur de savoir en un seul coup d’œil qu’il s’agisse d’un faux texte.
+                
+            {{articles.contenu}}        
+            
+            </div>      
+                
+       </article>      
 
 </div>
-</div>
-
-{% endblock %}
-
-
+{% endblock%}
 
 {% block footer %} 
+
+
 {% endblock%}
