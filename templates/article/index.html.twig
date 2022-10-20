@@ -2,29 +2,25 @@
 
 
 {% block body %}
+    {% include("menus/navigation.html.twig") %}
+    {% include("headers/header.html.twig") %}
 
-        {% include("menus/navigation.html.twig") %}
-        {% include("headers/header.html.twig") %}
-    <div>
-        
-        <div class="container">
-        
-            <h1> ARTICLES </h1>
+<div class="container">
+                <div class="row" >
+            <div class="col-3">
+        {%for article in articles  %}
 
-            {% for article in articles %}
+                <br><h3>titre : {{article.titre}} </h3> 
+                <br>{{article.auteur}} 
+                <br>{{article.resume}} 
+                
 
-                Titre:  {{ article.titre }} <br>
-                    Auteur :{{ article.auteur }} <br>
-                    
-                    Resumé: {{ article.resume }} <br><br><br>
-                    
-                    {{ article.contenu }} <br><br><br>
-
-            {% endfor %}
-
-
-    </div> 
+        {% endfor%}    
+                    </div
+            </div>  
     </div>
+
+
 {% endblock %}
 
 {% block footer %} 
