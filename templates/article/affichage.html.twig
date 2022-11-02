@@ -15,15 +15,15 @@
      
 <div class="container">
 <article>
-            <h2> {{articles.titre}}</h2>
-
+            <h2> {{articles.titre}}</h2> <br>
+            <h5> Auteur: {{articles.auteur}}</h5>
+            <h5> Date Creation: {{articles.createdAt | date('d/m/Y') }}</h5>
              <div class = "content">
                 <img src="https://via.placeholder.com/300x200" alt="">
-
-                
-            {{articles.contenu}}        
-            
             </div>      
+            {{articles.contenu}} <br><br>
+            <h5> Commentaire : </h5> {{articles.commentaire}}  <br><br>
+              
                 
        </article>      
 

@@ -42,6 +42,16 @@ class Article
      */
     private $contenu;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $commentaire;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $createdAt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +113,30 @@ class Article
     public function setContenu(string $contenu): self
     {
         $this->contenu = $contenu;
+
+        return $this;
+    }
+
+    public function getCommentaire(): ?string
+    {
+        return $this->commentaire;
+    }
+
+    public function setCommentaire(string $commentaire): self
+    {
+        $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

@@ -23,9 +23,11 @@ class ArticleFixtures extends Fixture
             $article = new Article();
             $article->setTitre($faker->sentence($nb = 5, $asText = false))
                     ->setAuteur($faker->name)
+                    ->setCreatedAt(new \DateTime())
                     ->setImage($faker->imageUrl(350, 350))
                     ->setResume($faker->text())
-                    ->setContenu($faker->realText($maxNbChars = 2000, $indexSize = 2));
+                    ->setContenu($faker->realText($maxNbChars = 2000, $indexSize = 2))
+                    ->setCommentaire($faker->text());
             
                 $manager->persist($article);
         }
