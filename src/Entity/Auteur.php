@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AuteurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,6 +30,11 @@ class Auteur
     private $prenoms;
 
     /**
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="auteur")
+     */
+    private $articles;
+
+    /**
      * @ORM\Column(type="text")
      */
     private $adresse;
@@ -38,9 +45,14 @@ class Auteur
     private $mail;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $phone;
+
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -71,6 +83,41 @@ class Auteur
         return $this;
     }
 
+    /**
+     * @return Collection<int, Article>
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Article $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->setAuteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): self
+    {
+        if ($this->articles->removeElement($article)) {
+            // set the owning side to null (unless already changed)
+            if ($article->getAuteur() === $this) {
+                $article->setAuteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function to_String(){
+
+        return $this->getNoms();
+    }
+
     public function getAdresse(): ?string
     {
         return $this->adresse;
@@ -95,12 +142,12 @@ class Auteur
         return $this;
     }
 
-    public function getPhone(): ?int
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
 
-    public function setPhone(int $phone): self
+    public function setPhone(string $phone): self
     {
         $this->phone = $phone;
 

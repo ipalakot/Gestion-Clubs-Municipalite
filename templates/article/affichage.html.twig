@@ -9,15 +9,13 @@
     {% include("menus/navigation_admin.html.twig") %}
 {% include("headers/header.html.twig") %}
 
-
-
-
      
 <div class="container">
 <article>
             <h2> {{articles.titre}}</h2> <br>
-            <h5> Categorie: {{ articles.Categorie.titre }} </5>
-            <h5> Auteur: {{articles.auteur}}</h5>
+            <h5> Categorie : {{ articles.Categorie.titre }} </5>
+            <h5> Auteur : {{ articles.auteur.noms }}  {{ articles.auteur.prenoms }}</5>
+
             <h5> Date Creation: {{articles.createdAt | date('d/m/Y') }}</h5>
              <div class = "content">
                 <img src="https://via.placeholder.com/300x200" alt="">
