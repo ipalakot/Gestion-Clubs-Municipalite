@@ -16,11 +16,12 @@
         <thead>
             <tr>
                 <th>Id</th>
-               {#  <th>Image</th> #}
                 <th>Titre</th>
+                <th>Categorie</th>
                 <th>Image</th>
                 <th>Auteurs</th> 
                 <th>Resumé</th>
+                <th>Action</th>
             </tr>
         </thead>
 
@@ -29,9 +30,18 @@
                 <tr>
                     <td>{{ article.id }}</td>
                     <td>{{ article.titre }}</td>
+                    <td>{{ article.categorie.titre }}</td>
                     <td>{{ article.image }}</td>
                     <td>{{ article.auteur}}</td>
                     <td>{{ article.resume}}</td>
+                    <td> 
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center">
+                                <a href="{{path('app_article_affichage', {'id': article.id})}}" class="btn btn-primary"> Lire </a> 
+                            </div>
+                        </div>
+                    
+                    </td>
                 </tr>
             {% else %}
                 <tr>

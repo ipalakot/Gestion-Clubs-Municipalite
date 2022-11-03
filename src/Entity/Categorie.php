@@ -82,7 +82,6 @@ class Categorie
             $this->articles[] = $article;
             $article->setCategorie($this);
         }
-
         return $this;
     }
 
