@@ -10,20 +10,40 @@
                 <h3> Gestion des UTILISATEURS </h3>
         </div>
 
-        {% for stagiaire in stagiaires %}
-
-
+         <table class="table">
+        <thead>
             <tr>
-                <td>{{ stagiaire.pseudo }}</td>
-                <td>{{ stagiaire.nom }}</td>
-                <td>{{ stagiaire.prenom }}</td><br>
-  
+                <th>Id</th>
+                <th>noms</th>
+                <th>Prenoms</th>
+                <th>Adresse</th>
+                <th>Mails</th> 
+                <th>Tel.</th>
+                <th>Action</th>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
+        </thead>
+
+        <tbody>
+            {% for auteurs in auteurs %}
+                <tr>
+                    <td>{{ auteur.id }}</td>
+                    <td>{{ auteur.noms }}</td>
+                    <td>{{ auteur.prenoms }}</td>
+                    <td>{{ auteur.adresse }}</td>
+                    <td>{{ auteur.mail }} {{ article.auteur.prenoms }}</td>
+                    <td>{{ auteur.phone}}</td>
+                    <td> 
+
+                    
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">Aucun article pour lemoment !</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
         --
     </div>
