@@ -2,12 +2,13 @@
 
 {% block body %}
 
-        {% include("menus/navigation.html.twig") %}
-        {% include("headers/header.html.twig") %}
+        {% include("menus/navigation_admin.html.twig") %}
+        {% include("headers/header_admin.html.twig") %}
 
     <div class ="col-lg-12 bg-light">
         <div class ="container-sm">   <div>
                 <h3> Gestion des UTILISATEURS </h3>
+                <hr>
         </div>
 
          <table class="table">
@@ -24,16 +25,20 @@
         </thead>
 
         <tbody>
-            {% for auteurs in auteurs %}
+            {% for user in users %}
                 <tr>
-                    <td>{{ auteur.id }}</td>
-                    <td>{{ auteur.noms }}</td>
-                    <td>{{ auteur.prenoms }}</td>
-                    <td>{{ auteur.adresse }}</td>
-                    <td>{{ auteur.mail }} {{ article.auteur.prenoms }}</td>
-                    <td>{{ auteur.phone}}</td>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.noms }}</td>
+                    <td>{{ user.prenoms }}</td>
+                    <td>{{ user.adresse }}</td>
+                    <td>{{ user.mail}}</td>
+                    <td>{{ user.phone}}</td>
                     <td> 
-
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <a href="{{path('adm_users_display', {'id': user.id})}}" class="btn btn-primary"> display /  </a> 
+                                </div>
+                            </div> 
                     
                     </td>
                 </tr>
@@ -45,7 +50,7 @@
         </tbody>
     </table>
 
-        --
+
     </div>
 
      

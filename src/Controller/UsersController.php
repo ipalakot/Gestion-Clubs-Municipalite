@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Auteur;
-use App\Repository\AuteurRepository;
+use App\Entity\Users;
+use App\Repository\UsersRepository;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,12 +14,29 @@ use Doctrine\Common\Persistence\ObjectManager;
 class UsersController extends AbstractController
 {
     /**
-     * @Route("/users", name="app_users")
+     * @Route("/admin/users", name="adm_users")
      */
-    public function index(AuteurRepository $auteurRepository): Response
+    public function index(UsersRepository $usersRepository): Response
     {
         return $this->render('users/index.html.twig', [
-            'auteurs' => $auteurRepository->findAll(),
+            'users' => $usersRepository->findAll(),
         ]);
+    }
+
+    /**
+     * @Route("/admin/users/{id}", name="adm_users_display")
+     * 
+     */
+    public function dispalUsers($id)
+    {    
+        $repo = $this->getDoctrine()->getRepository(Users::class);
+        $users= $repo->find($id);
+        
+        return $this->render('users/affichage.html.twig', [
+
+            'users'=>$users
+
+        ]);
+
     }
 }
