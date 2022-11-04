@@ -1,31 +1,55 @@
 {% extends 'base.html.twig' %}
 
 
-
-
-
 {% block body %}
     {% include("menus/navigation_admin.html.twig") %}
-{% include("headers/header.html.twig") %}
-
-
-
-
-     
-<div class="container">
-    <article>
-            <h2> {{auteurs.noms}}</h2> 
-            <br>                    
-            
+    {% include("headers/header.html.twig") %}
                 
-       </article>      
+        <article class="col-md-12 maincontent">
+            <div class="container">
+                <div class="row">
+                   <h1>{{ auteurs.noms }} users' Profil </h1>
+                   <hr>
 
-</div>
+                        <article>                        
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-2 display-6">Noms:</div>
+                                    <div class="col-sm-10 display-6">{{ auteurs.noms }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2 display-6">Prénoms:</div>
+                                    <div class="col-sm-10 display-6">{{ auteurs.prenoms }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2 display-6">Adresse:</div>
+                                    <div class="col-sm-10 display-6">{{ auteurs.adresse }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2 display-6">Emails:</div>
+                                    <div class="col-sm-10 display-6">{{ auteurs.mail }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2 display-6">Télephone:</div>
+                                    <div class="col-sm-10 display-6">{{ auteurs.phone }}</div>
+                                </div>
+
+                            </div>
+                        </article>
+
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <a href="{{path('app_auteur') }} " class="btn btn-primary"> Retour à la liste</a> 
+                                </div>
+                            </div> 
+                </div>            
+            </div>
+        </article>   
 {% endblock%}
 
 {% block footer %} 
 
-
 {% endblock%}
+
 
 
