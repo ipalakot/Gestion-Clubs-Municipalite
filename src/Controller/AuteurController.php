@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Auteur;
 use App\Repository\AuteurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,5 +19,21 @@ class AuteurController extends AbstractController
             'controller_name' => 'AuteurController',
             'auteurs' => $auteurRepository->findAll(),
         ]);
+    }
+
+    /**
+     * @Route("/auteur/{id}", name="app_auteur_affichage")
+     * 
+     */
+    public function affichage($id)
+    {    
+        $repo = $this->getDoctrine()->getRepository(Auteur::class);
+        $auteurs= $repo->find($id);
+        
+        return $this->render('auteur/affichage.html.twig', [
+
+            'auteurs'=>$auteurs
+        ]);
+
     }
 }
