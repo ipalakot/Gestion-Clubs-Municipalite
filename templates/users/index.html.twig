@@ -1,19 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UsersController!{% endblock %}
+{% block body %}
 
-{% block body %}        
-    {% include("menus/navigation.html.twig") %}
-    {% include("headers/header.html.twig") %}
+        {% include("menus/navigation.html.twig") %}
+        {% include("headers/header.html.twig") %}
 
-    {# Entete de la Page #}  
-        <div class="example-wrapper">
-         <h1> GESTION LES UTILISATEURS </h1>
-    </div>
+    <div class ="col-lg-12 bg-light">
+        <div class ="container-sm">   <div>
+                <h3> Gestion des UTILISATEURS </h3>
+        </div>
 
-   <div class ="container-sm, form-control">
-   
-    {% for stagiaire in stagiaires %}
+        {% for stagiaire in stagiaires %}
 
 
             <tr>
@@ -27,6 +24,14 @@
                 <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
+
+        --
     </div>
 
+     
 {% endblock %}
+
+{% block footer %} 
+{% endblock%}
+
+
