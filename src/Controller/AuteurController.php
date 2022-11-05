@@ -22,11 +22,22 @@ class AuteurController extends AbstractController
     }
 
     /**
+     * @Route("/admin/auteur", name="adm_index_auteur")
+     */
+    public function index_adm(AuteurRepository $auteurRepository): Response
+    {
+        return $this->render('auteur/index_adm.html.twig', [
+            'controller_name' => 'AuteurController',
+            'auteurs' => $auteurRepository->findAll(),
+        ]);
+    }
+
+    /**
      * @Route("/auteur/{id}", name="app_auteur_affichage")
-     * 
+     *
      */
     public function affichage($id)
-    {    
+    {
         $repo = $this->getDoctrine()->getRepository(Auteur::class);
         $auteurs= $repo->find($id);
         
@@ -34,6 +45,5 @@ class AuteurController extends AbstractController
 
             'auteurs'=>$auteurs
         ]);
-
     }
 }

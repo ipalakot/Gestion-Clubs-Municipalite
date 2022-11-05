@@ -13,33 +13,32 @@ use PhpParser\Node\Expr\New_;
 class ArticleFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
-
     {
         // Utiliser la Bibliotheque Fakar
         $faker = \Faker\Factory::create('fr_FR');
 
         // je mets en place 5 categories
-        for ($i=0; $i<2; $i++){
-            $categorie = New Categorie();
+        for ($i=0; $i<2; $i++) {
+            $categorie = new Categorie();
             $categorie -> setTitre($faker->sentence($nb = 5, $asText = false))
-                       ->setResume($faker->text());        
+                       ->setResume($faker->text());
             $manager->persist($categorie);
 
-             // Creation de mes auteurs
-             for ($k=0; $k<2; $k++){
-                $auteur = New Auteur();
+            // Creation de mes auteurs
+            for ($k=0; $k<20; $k++) {
+                $auteur = new Auteur();
                 $auteur ->setNoms($faker->lastname)
                         ->setPrenoms($faker->firstname)
                         ->setPrenoms($faker->firstname)
                         ->setAdresse($faker->address)
                         ->setMail($faker->email)
-                        ->setPhone($faker->phoneNumber);           
-                    $manager->persist($auteur);
+                        ->setPhone($faker->phoneNumber);
+                $manager->persist($auteur);
 
-            // Creation de 10 Article
-            for ($j=0; $j<3; $j++){
-                $article = new Article();
-                $article->setTitre($faker->sentence($nb = 5, $asText = false))
+                // Creation de 10 Article
+                for ($j=0; $j<3; $j++) {
+                    $article = new Article();
+                    $article->setTitre($faker->sentence($nb = 5, $asText = false))
                         ->setAuteur($auteur)
                         ->setCreatedAt(new \DateTime())
                         ->setCategorie($categorie)
@@ -48,9 +47,9 @@ class ArticleFixtures extends Fixture
                         ->setContenu($faker->realText($maxNbChars = 2000, $indexSize = 2))
                         ->setCommentaire($faker->text());
                     $manager->persist($article);
-            }   
+                }
+            }
         }
-    }   
-    $manager->flush();
+        $manager->flush();
     }
 }
