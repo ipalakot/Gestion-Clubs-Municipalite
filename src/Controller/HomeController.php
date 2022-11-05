@@ -66,8 +66,6 @@ class HomeController extends AbstractController
                 'note_recu'=>'10/20',
     ]);
 
-
-
         // return $response;
         return new Response($response1);
     }
@@ -79,6 +77,19 @@ class HomeController extends AbstractController
     {
         //redirection sur une Route de mon application
         return $this->redirectToRoute('app_apropos');
+
+        // return $this->generateUrl('https://fr.wikipedia.org/wiki/Listes_des_communes_de_Francehome');
+    }
+
+    /**
+     * @Route("/admin/tools", name="admin_tools")
+     */
+    public function tools()
+    {
+        //listing des outils pour la Gestion de l'applcation
+        return $this->render('admin/tools.html.twig', [
+
+        ] );
 
         // return $this->generateUrl('https://fr.wikipedia.org/wiki/Listes_des_communes_de_Francehome');
     }
