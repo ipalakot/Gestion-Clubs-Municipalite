@@ -8,7 +8,7 @@
         <article class="col-md-12 maincontent">
             <div class="container">
                 <div class="row">
-                   <h1>{{ users.noms }} users' Profil </h1>
+                   <h1>{{ users.noms }} users' Profil </h1> | 
                    <hr>
 
                         <article>                        
@@ -37,19 +37,15 @@
                             </div>
                         </article>
 
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a href="{{path('adm_users_display') }} " class="btn btn-primary"> Retour à la liste</a> 
-                                </div>
-                            </div> 
+ 
                 </div>            
             </div>
-        </article>   
+
+            <br> <br><br><br><br>
+        </article> 
+          
 {% endblock%}
 
-{% block footer %} 
-
-{% endblock%}
 
 
 

@@ -24,19 +24,18 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("/admin/users/{id}", name="adm_users_display")
-     * 
+     * @Route("/admin/users/{id}", name="adm_users_display", methods={"GET"} )
+     *
      */
-    public function dispalUsers($id)
-    {    
-        $repo = $this->getDoctrine()->getRepository(Users::class);
-        $users= $repo->find($id);
+    public function displayUsers(Users $users)
+    {
+        //$repo = $this->getDoctrine()->getRepository(Users::class);
+        //$users= $repo->find($id);
         
         return $this->render('users/affichage.html.twig', [
 
             'users'=>$users
 
         ]);
-
     }
 }
