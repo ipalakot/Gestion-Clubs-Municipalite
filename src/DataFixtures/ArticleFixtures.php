@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Article;
 use App\Entity\Auteur;
 use App\Entity\Categorie;
+use App\Entity\Commentaire;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -44,9 +45,25 @@ class ArticleFixtures extends Fixture
                         ->setCategorie($categorie)
                         ->setImage($faker->imageUrl(350, 350))
                         ->setResume($faker->text())
-                        ->setContenu($faker->realText($maxNbChars = 2000, $indexSize = 2))
-                        ->setCommentaire($faker->text());
+                        ->setContenu($faker->realText($maxNbChars = 2000, $indexSize = 2));
+                       // ->setCommentaire($faker->text());
                     $manager->persist($article);
+
+                    //Creer 5 commentaire pour 1 Article
+
+                    for ($c=1; $c<5; $c++ ){
+                        $commentaire = New Commentaire();
+
+                        $days =(new \DateTime());
+
+                        $commentaire->setAuteur($faker->name)
+                                    ->setCreatedAt($faker->dateTime())
+                                    ->setContenu($faker->sentence)
+                                    ->setArticle($article);
+                                    
+                        $manager-> persist($commentaire);
+                                    
+                    }
                 }
             }
         }

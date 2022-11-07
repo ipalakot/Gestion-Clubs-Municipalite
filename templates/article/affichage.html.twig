@@ -34,13 +34,25 @@
         </div>
 
   
-            <br> <br><br>
+            <br> 
 
            <!-- Affichage des Commentaires -->
-           <h2> Les Commentaires: </h1> 
-            {{articles.commentaire}} 
+           
+            <h2> Les Commentaires: </h1> 
+            <div>
+                <hr size="4" color="blue">
+                    {% for commentaire in articles.commentaires %}
+                        <div class="comment">
+                            <div class="row">
 
-            <br><br><br><br>
+                                {{ commentaire.auteur }}</b> 
+                                {{ commentaire.createdAt | date('d/m/y') }}<br>
+                                {{ commentaire.contenu }}<br> <br>
+                            </div>
+                        </div>
+                    {% endfor %}
+            </div>
+           
            
            
                 

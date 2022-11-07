@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 
+use Knp\Component\Pager\PaginatorInterface;
+
 use Symfony\Component\Routing\Annotation\Route;
 
 // use Doctrine\Common\Persistance\ObjectManager;
@@ -22,14 +24,20 @@ use Symfony\Component\Routing\Annotation\Route;
     /**
      * @Route("/article", name="app_article")
      */
-    public function index(ArticleRepository $articlesRepository): Response
+    public function index(PaginatorInterface $paginator, Request $request, ArticleRepository $articlesRepository): Response
     {
-        // $repo = $this->getDoctrine()->getRepository(Article::class);
-        //$articles => $repo;
+
+        $donnees = $articlesRepository->findAll();
+
+        $articles = $paginator->paginate(
+            $donnees, /* query NOT result */
+        $request->query->getInt('page', 1), /*page number*/
+        25 /*limit per page*/
+    );
 
         return $this->render('article/index.html.twig', [
 
-            'articles' => $articlesRepository->findAll(),
+            'articles' => $articles,
         ]);
     }
 
