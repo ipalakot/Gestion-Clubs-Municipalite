@@ -8,18 +8,29 @@ use App\Repository\ArticleRepository;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+
+use Knp\Component\Pager\PaginatorInterface;
 
 class HomeController extends AbstractController
 {
     /**
      * @Route("/home", name="app_home")
      */
-    public function index(ArticleRepository $articlesRepository): Response
+    public function index(PaginatorInterface $paginator, Request $request, ArticleRepository $articlesRepository): Response
     {
-        return $this->render('home/index.html.twig', [
+        $donnees = $articlesRepository->findAll();
 
-            'articles' => $articlesRepository->findAll(),
+        $articles = $paginator->paginate(
+            $donnees, /* query NOT result */
+        $request->query->getInt('page', 1), /*page number*/
+       8 /*limit per page*/
+    );
+        
+            return $this->render('home/index.html.twig', [
+
+            'articles' => $articles,
         ]);
     }
 
