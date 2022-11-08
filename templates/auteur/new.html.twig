@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    {% include("menus/navigation_admin.html.twig") %}
+    {% include("headers/header.html.twig") %}
+                
+        <article class="col-md-12 maincontent">
+            <div class="container">
+                <div class="row">
+                   <h1> Nouvel Enregistrement </h1>
+                   <hr>
+
+                   {{ form(form) }}
+
+                        
+                </div>            
+            </div>
+        </article>   
+{% endblock%}
+
+{% block footer %} 
+
+{% endblock%}
+
+
+

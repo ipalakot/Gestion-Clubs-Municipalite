@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Auteur;
 use App\Repository\AuteurRepository;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AuteurController extends AbstractController
@@ -32,6 +34,30 @@ class AuteurController extends AbstractController
         ]);
     }
 
+    /**
+    * @Route("/new", name="app_auteur_new", methods={"GET", "POST"})
+    */
+    public function nouveau(AuteurRepository $auteurRepository): Response
+    {
+        $auteur = New Auteur();
+
+        $form = $this->createFormBuilder($auteur)
+        
+        //Ajouter les prop de mon formulaire
+
+            ->add('noms')
+            ->add('prenoms')
+            ->add('adresse')
+            ->add('mail')
+            ->add('phone')
+
+            ->getForm();
+
+        return $this->render('auteur/new.html.twig', [
+            'form' => $form, 
+            'auteur'=>$auteur       
+        ]);
+    }
     /**
      * @Route("/auteur/{id}", name="app_auteur_affichage")
      *
