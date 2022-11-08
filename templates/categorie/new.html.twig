@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Categorie{% endblock %}
+
+{% block body %}
+
+  {% include("menus/navigation_admin.html.twig") %}
+    {% include("headers/header_admin.html.twig") %}
+
+
+     <article class="col-md-12 maincontent">
+            <div class="container">
+                <div class="row">
+                   <h1> Nouvelle Categorie </h1>
+                   <hr>
+
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit" class"btn btn-success"> Ajouter cette categorie </button>
+            {{ form_end(form) }}
+
+
+                        
+                </div>            
+            </div>
+        </article>   
+
+    <a href="{{ path('app_categ2_index') }}"Liste des Categories </a>
+{% endblock %}

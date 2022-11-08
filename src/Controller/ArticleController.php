@@ -5,11 +5,15 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
 
+use App\Form\ArticleType;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+
+use Symfony\Component\Form\Form;
 
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -41,6 +45,26 @@ use Symfony\Component\Routing\Annotation\Route;
         ]);
     }
 
+    /**
+     * @Route("/newart", name="app_articles_new", methods={"GET", "POST"})
+     */
+    public function new(Request $request, ArticleRepository $articleRepository): Response
+    {
+        $article = new Article();
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $articleRepository->add($article, true);
+
+            return $this->redirectToRoute('app_articles_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('article/new.html.twig', [
+            'article' => $article,
+            'form' => $form,
+        ]);
+    }
 
     /**
      * @Route("/article/{id}", name="app_article_affichage")
