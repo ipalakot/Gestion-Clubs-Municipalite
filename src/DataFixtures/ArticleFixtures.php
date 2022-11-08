@@ -26,7 +26,7 @@ class ArticleFixtures extends Fixture
             $manager->persist($categorie);
 
             // Creation de mes auteurs
-            for ($k=0; $k<20; $k++) {
+            for ($k=0; $k<2; $k++) {
                 $auteur = new Auteur();
                 $auteur ->setNoms($faker->lastname)
                         ->setPrenoms($faker->firstname)

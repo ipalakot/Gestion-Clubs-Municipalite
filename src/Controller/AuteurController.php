@@ -7,7 +7,8 @@ use App\Repository\AuteurRepository;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\request;
+use Symfony\Component\HttpFoundation\Request;
+//use Symfony\Component\HttpFoundation\request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AuteurController extends AbstractController
@@ -37,24 +38,37 @@ class AuteurController extends AbstractController
     /**
     * @Route("/new", name="app_auteur_new", methods={"GET", "POST"})
     */
-    public function nouveau(AuteurRepository $auteurRepository): Response
+    public function nouveau(Request $request, AuteurRepository $auteurRepository): Response
     {
+        // Nouvel Auteur
         $auteur = New Auteur();
 
+        // Creation du Gabarit du Formulaire
         $form = $this->createFormBuilder($auteur)
         
-        //Ajouter les prop de mon formulaire
-
+        // Ajouter les prop de mon formulaire
             ->add('noms')
             ->add('prenoms')
             ->add('adresse')
             ->add('mail')
             ->add('phone')
 
+            // Demande le résultat
             ->getForm();
 
+           // Analyse des Requetes & Traitement des information 
+            $form->handleRequest($request);
+
+           // Test sur le Formulaire
+            if ($form->isSubmitted() &&  $form->isValid()){
+                $auteurRepository->add($auteur, true);
+
+                //Redirection
+                return $this->redirectToRoute('adm_index_auteur');
+            }
+            
         return $this->render('auteur/new.html.twig', [
-            'form' => $form, 
+            'form' => $form->createView(), 
             'auteur'=>$auteur       
         ]);
     }

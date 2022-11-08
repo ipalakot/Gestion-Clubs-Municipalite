@@ -8,10 +8,14 @@
         <article class="col-md-12 maincontent">
             <div class="container">
                 <div class="row">
-                   <h1> Nouvel Enregistrement </h1>
+                   <h1> Nouvel Auteur</h1>
                    <hr>
 
-                   {{ form(form) }}
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit" class"btn btn-success"> Ajouter cet Auteur </button>
+            {{ form_end(form) }}
+
 
                         
                 </div>            
