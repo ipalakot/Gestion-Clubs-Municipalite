@@ -3,27 +3,32 @@
 namespace App\Controller;
 
 use App\Entity\Article;
-use App\Repository\ArticleRepository;
-
 use App\Form\ArticleType;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Entity\Commentaire;
 
 use Symfony\Component\Form\Form;
 
+use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
+use Symfony\Component\HttpFoundation\Request;
+
+use Doctrine\Common\Persistence\ObjectManager;
+
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 // use Doctrine\Common\Persistance\ObjectManager;
 
 
 
-    class ArticleController extends AbstractController
+/**
+ * @Route("/article")
+ */
+class ArticleController extends AbstractController
 {
     /**
      * @Route("/article", name="app_article")
@@ -45,6 +50,7 @@ use Symfony\Component\Routing\Annotation\Route;
         ]);
     }
 
+
     /**
      * @Route("/newart", name="app_articles_new", methods={"GET", "POST"})
      */
@@ -57,7 +63,7 @@ use Symfony\Component\Routing\Annotation\Route;
         if ($form->isSubmitted() && $form->isValid()) {
             $articleRepository->add($article, true);
 
-            return $this->redirectToRoute('app_articles_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_article', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('article/new.html.twig', [
@@ -67,21 +73,44 @@ use Symfony\Component\Routing\Annotation\Route;
     }
 
     /**
-     * @Route("/article/{id}", name="app_article_affichage")
+     * @Route("/{id}", name="app_article_affichage")
      * 
      */
-    public function affichage($id)
+    public function affichage(EntityManagerInterface $entityManager, Article $articles, Request $request, $id)
     {    
-        $repo = $this->getDoctrine()->getRepository(Article::class);
-        $articles= $repo->find($id);
-        
+        $commentaire = new Commentaire();
+        //$commentairesForm = $this->createForm(CommentairesType::class, $commentaires);
+
+        $form = $this->createFormBuilder($commentaire)
+                ->add('auteur')
+                ->add('contenu') 
+                ->getForm();
+       
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $commentaire->setCreatedAt(new \DateTime())
+                     ->setArticle($articles);
+            
+            $entityManager->persist($commentaire);
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_article_affichage',  ['id' => $articles->getId()
+            ]);
+    }
+
         return $this->render('article/affichage.html.twig', [
 
-            'articles'=>$articles
+        'articles'=>$articles,
+        'form'=> $form->createView()
+        //'commentaires '=> $commentaires ,
 
         ]);
 
     }
+
+
 
     /**
      * @Route("/catalogue", name="app_catalogue")
