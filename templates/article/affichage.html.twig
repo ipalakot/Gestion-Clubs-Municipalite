@@ -13,57 +13,42 @@
 
      
 <div class="container">
-<article>
-            <h2> {{articles.titre}}</h2> 
-            <br>                    
-            
+    <article>
+            <h2> {{articles.titre}}</h2> <br>                    
             <h6> Auteur : {{articles.auteur.noms }} </h6>  <br>
-
-            <h6> Categorie : {{articles.categorie.titre}}</h6> 
-            <br>
-            
+            <h6> Categorie : {{articles.categorie.titre}}</h6> <br>
             <h6> Date de Création :  {{ articles.createdAt | date('d/m/Y') }}  </h6> 
-                 
-
+             
             <div class="clearfix">
                 <img src="https://via.placeholder.com/700x400" class="col-md-6 float-md-end mb-3 ms-md-3" alt="...">
-
                 <p>
                     {{articles.contenu}}
                 </p>
-        </div>
-
-  
+            </div>
             <br> 
-
-           <!-- Affichage des Commentaires -->
-           
-            <h2> Les Commentaires: </h1> 
+            <!-- Affichage des Commentaires -->
+            <h5> Commentaires: ({{ articles.commentaires | length}}) </h5> 
             <div>
                 <hr size="4" color="blue">
-                    {% for commentaire in articles.commentaires %}
-                        <div class="comment">
-                            <div class="row">
-
-                                {{ commentaire.auteur }}</b> 
-                                {{ commentaire.createdAt | date('d/m/y') }}<br>
-                                {{ commentaire.contenu }}<br> <br>
+                {% for commentaire in articles.commentaires %}
+                    <div class="comment">
+                        <div class="row">
+                            <div class="col-1">
+                                <small>{{ commentaire.createdAt | date('d/m/y') }} / </small>
                             </div>
+                        <div class="col-8">
+                            <h5>{{ commentaire.auteur }}</h5>
                         </div>
-                    {% endfor %}
+                        <div class="col-9">
+                            {{ commentaire.contenu }}
+                        </div>
+                    </div><br>
+                {% endfor %}
             </div>
-           
-           
-           
-                
-       </article>      
-
-</div>
+        </article>   
+        <a href="{{path('app_article')}}" class="btn btn-primary"> Retour / Index  </a> <br><br><br><br>   
+    </div>
 {% endblock%}
 
-{% block footer %} 
-
-
-{% endblock%}
 
 
