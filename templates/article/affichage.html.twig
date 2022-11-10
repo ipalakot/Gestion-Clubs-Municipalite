@@ -1,15 +1,9 @@
 {% extends 'base.html.twig' %}
 
 
-
-
-
 {% block body %}
     {% include("menus/navigation_admin.html.twig") %}
-{% include("headers/header.html.twig") %}
-
-
-
+    {% include("headers/header.html.twig") %}
 
      
 <div class="container">
@@ -26,8 +20,25 @@
                 </p>
             </div>
             <br> 
+            
+            <!-- Affichage du Formulaire de Commentaire -->
+
+            <div>
+                <p class="bg-dark text-white">Ajouter votre commentaire  </p>
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                  
+                    <button class="btn btn-primary">{{ button_label|default('Sauvegardez') }}</button>
+                {{ form_end(form) }}
+
+            </div> 
+            
+          
             <!-- Affichage des Commentaires -->
-            <h5> Commentaires: ({{ articles.commentaires | length}}) </h5> 
+           
+          <br><br> <h5><p class="bg-dark text-white">   Liste de Commentaires: ({{ articles.commentaires | length}})  </p></h5>
+
+           
             <div>
                 <hr size="4" color="blue">
                 {% for commentaire in articles.commentaires %}
@@ -49,6 +60,3 @@
         <a href="{{path('app_article')}}" class="btn btn-primary"> Retour / Index  </a> <br><br><br><br>   
     </div>
 {% endblock%}
-
-
-

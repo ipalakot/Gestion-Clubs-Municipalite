@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Auteur;
 use App\Repository\AuteurRepository;
+use App\Form\AuteurType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,10 +12,13 @@ use Symfony\Component\HttpFoundation\Request;
 //use Symfony\Component\HttpFoundation\request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/auteur")
+ */
 class AuteurController extends AbstractController
 {
     /**
-     * @Route("/auteur", name="app_auteur")
+     * @Route("/", name="app_auteur")
      */
     public function index(AuteurRepository $auteurRepository): Response
     {
@@ -25,7 +29,7 @@ class AuteurController extends AbstractController
     }
 
     /**
-     * @Route("/admin/auteur", name="adm_index_auteur")
+     * @Route("/admin", name="adm_index_auteur")
      */
     public function index_adm(AuteurRepository $auteurRepository): Response
     {
@@ -72,8 +76,31 @@ class AuteurController extends AbstractController
             'auteur'=>$auteur       
         ]);
     }
+   
+    
     /**
-     * @Route("/auteur/{id}", name="app_auteur_affichage")
+     * @Route("/{id}/edit", name="adm_auteur_edit", methods={"GET", "POST"})
+     */
+    public function edit(Request $request, Auteur $auteur, AuteurRepository $auteurRepository): Response
+    {
+        $form = $this->createForm(AuteurType::class, $auteur);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $auteurRepository->add($auteur, true);
+
+            return $this->redirectToRoute('adm_index_auteur', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('auteur/edit.html.twig', [
+            'auteur' => $auteur,
+            'form' => $form,
+        ]);
+    }
+
+
+    /**
+     * @Route("/{id}", name="app_auteur_affichage")
      *
      */
     public function affichage($id)

@@ -31,16 +31,17 @@
                                         <td> 
                                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                                 <div class="text-center">
-                                                    <a href="#" class="btn btn-primary"> Aff </a> 
-                                                    <a href="#" class="btn btn-primary"> Edit</a> 
-                                                    <a href="#" class="btn btn-primary"> Del </a> 
+                                                    <a href="{{path('app_categorie_show', {'id': categorie.id})}}" class="btn btn-primary"> aff </a> 
+                                                    <a href="{{path('adm_categorie_edit', {'id': categorie.id})}}" class="btn btn-primary"> edit </a> 
+                                                    
+                                                    
                                                 </div>
                                             </div> 
                     </td>
                                     </tr>
                                 {% else %}
                                     <tr>
-                                        <td colspan="5">Aucun article pour lemoment !</td>
+                                        <td colspan="5"> Aucun article pour lemoment  </td>
                                     </tr>
                                 {% endfor %}
                         </tbody>

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Categorie{% endblock %}
+
+{% block body %}
+    
+    {% include("menus/navigation_admin.html.twig") %}
+    {% include("headers/header_admin.html.twig") %}
+
+
+<div class="container">
+     <article>
+        <h2> Edition: {{categorie.titre}}</h2> <br>                    
+                        
+        <div>
+            {{ include('categorie/_form.html.twig', {'button_label': 'Editer'}) }}
+         </div> 
+            
+          <br><br><br><br><br><br><br>
+        </div>
+    </article>   
+           
+    </div>
+
+
+{% endblock %}

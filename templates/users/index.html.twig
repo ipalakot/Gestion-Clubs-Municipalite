@@ -37,7 +37,8 @@
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <a href="{{path('adm_users_display', {'id': user.id} ) }}" class="btn btn-primary"> Display /  </a> 
-                                    <a href="#" class="btn btn-primary"> Edit /  </a> 
+                                   <a href="{{path('adm_users_edit', {'id': user.id} ) }}" class="btn btn-primary"> Edit /  </a> 
+                                
                                     <a href="#" class="btn btn-primary"> Delet /  </a> 
                                 </div>
                             </div> 
@@ -51,8 +52,8 @@
             {% endfor %}
         </tbody>
     </table>
-
-    </div>
+<a href="{{path('adm_users_new')}}" class="btn btn-primary"> Ajouter 1 Utilisateur /  </a> <br><br><br><br
+    </div></div></div>
 
 
 {% endblock %}
