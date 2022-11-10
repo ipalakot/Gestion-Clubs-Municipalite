@@ -84,4 +84,18 @@ class UsersController extends AbstractController
             'form' => $form,
         ]);
     }
+
+
+    /**
+     * @Route("/{id}", name="adm_users_suppr", methods={"POST"})
+     */
+    public function suppr(Request $request, Users $user, UsersRepository $usersRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            $usersRepository->remove($user, true);
+        }
+
+        return $this->redirectToRoute('adm_users', [], Response::HTTP_SEE_OTHER);
+    }
+
 }
