@@ -1,29 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Categorie{% endblock %}
+{% block title %}Edit Auteur{% endblock %}
 
 {% block body %}
-    
-    {% include("menus/navigation_admin.html.twig") %}
-    {% include("headers/header_admin.html.twig") %}
+    <h1>Edit Auteur</h1>
 
+    {{ include('auteur/_form.html.twig', {'button_label': 'Update'}) }}
 
-<div class="container">
-     <article>
-        <h4> Edition: {{auteur.noms}}</h4> <br>                    
-                        
-        <div>
-            {{ include('auteur/_form.html.twig', {'button_label': 'Editer'}) }}
+    <a href="{{ path('app_auteur_index') }}">back to list</a>
 
-            {#<a href="{{ path('app_users') }}">Liste des Utilisateurs</a>#}
-         </div> 
-            
-          <br><br><br><br><br><br><br>
-        </div>
-    </article>   
-           
-    </div>
-
-
+    {{ include('auteur/_delete_form.html.twig') }}
 {% endblock %}
-

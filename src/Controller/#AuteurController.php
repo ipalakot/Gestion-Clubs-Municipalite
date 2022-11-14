@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Auteur;
-use App\Form\AuteurType;
 use App\Repository\AuteurRepository;
+use App\Form\AuteurType;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+//use Symfony\Component\HttpFoundation\request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -16,11 +18,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class AuteurController extends AbstractController
 {
     /**
-     * @Route("/", name="app_auteur", methods={"GET"})
+     * @Route("/", name="app_auteur")
      */
     public function index(AuteurRepository $auteurRepository): Response
     {
         return $this->render('auteur/index.html.twig', [
+            'controller_name' => 'AuteurController',
             'auteurs' => $auteurRepository->findAll(),
         ]);
     }
@@ -36,44 +39,45 @@ class AuteurController extends AbstractController
         ]);
     }
 
-
-
     /**
-     * @Route("/new", name="app_auteur_new", methods={"GET", "POST"})
-     */
+    * @Route("/new", name="app_auteur_new", methods={"GET", "POST"})
+    */
     public function nouveau(Request $request, AuteurRepository $auteurRepository): Response
     {
         // Nouvel Auteur
-        $auteur = new Auteur();
-        
+        $auteur = New Auteur();
+
         // Creation du Gabarit du Formulaire
-        $form = $this->createForm(AuteurType::class, $auteur);
+        $form = $this->createFormBuilder($auteur)
         
-        // Creation du Gabarit du Formulaire
-        $form->handleRequest($request);
+        // Ajouter les prop de mon formulaire
+            ->add('noms')
+            ->add('prenoms')
+            ->add('adresse')
+            ->add('mail')
+            ->add('phone')
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $auteurRepository->add($auteur, true);
+            // Demande le résultat
+            ->getForm();
 
-            return $this->redirectToRoute('adm_index_auteur', [], Response::HTTP_SEE_OTHER);
-        }
+           // Analyse des Requetes & Traitement des information 
+            $form->handleRequest($request);
 
-        return $this->renderForm('auteur/new.html.twig', [
-            'auteur' => $auteur,
-            'form' => $form,
+           // Test sur le Formulaire
+            if ($form->isSubmitted() &&  $form->isValid()){
+                $auteurRepository->add($auteur, true);
+
+                //Redirection
+                return $this->redirectToRoute('adm_index_auteur');
+            }
+            
+        return $this->render('auteur/new.html.twig', [
+            'form' => $form->createView(), 
+            'auteur'=>$auteur       
         ]);
     }
-
-    /**
-     * @Route("/{id}", name="app_auteur_affichage", methods={"GET"})
-     */
-    public function affichage(Auteur $auteur): Response
-    {
-        return $this->render('auteur/affichage.html.twig', [
-            'auteur' => $auteur,
-        ]);
-    }
-
+   
+    
     /**
      * @Route("/{id}/edit", name="adm_auteur_edit", methods={"GET", "POST"})
      */
@@ -94,15 +98,33 @@ class AuteurController extends AbstractController
         ]);
     }
 
+
     /**
-     * @Route("/{id}", name="app_auteur_delete", methods={"POST"})
+     * @Route("/{id}", name="app_auteur_affichage")
+     *
      */
-    public function delete(Request $request, Auteur $auteur, AuteurRepository $auteurRepository): Response
+    public function affichage($id)
     {
-        if ($this->isCsrfTokenValid('delete'.$auteur->getId(), $request->request->get('_token'))) {
-            $auteurRepository->remove($auteur, true);
+        $repo = $this->getDoctrine()->getRepository(Auteur::class);
+        $auteurs= $repo->find($id);
+        
+        return $this->render('auteur/affichage.html.twig', [
+
+            'auteurs'=>$auteurs
+        ]);
+    }
+
+    
+    /**
+     * @Route("/{id}", name="app_autor_test_delete", methods={"POST"})
+     */
+    public function delete(Request $request, Auteur $auteurs, AuteurRepository $auteurRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$auteurs->getId(), $request->request->get('_token'))) {
+            $auteurRepository->remove($auteurs, true);
         }
 
         return $this->redirectToRoute('adm_index_auteur', [], Response::HTTP_SEE_OTHER);
     }
+
 }
