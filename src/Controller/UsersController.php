@@ -16,6 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
+
+
 /**
  * @Route("/users")
  */
@@ -100,17 +102,17 @@ class UsersController extends AbstractController
     /**
      * @Route("/{id}", name="adm_users_suppr", methods={"POST"})
      */
-    public function suppr(ObjectManager $manager, Request $request, Users $user, UsersRepository $usersRepository): Response
+    public function suppr(Request $request, Users $user, UsersRepository $usersRepository): Response
     
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             
-            // $usersRepository->remove($user, true);
+             $usersRepository->remove($user, true);
             
-            $manager= $this->getDoctrine()-getManager();
+            //$manager= $this->getDoctrine()-getManager();
                 
-                $this->$manager->remove(user);
-                $manager->flush();
+            //    $this->$manager->remove(user);
+            //    $manager->flush();
         }
 
         return $this->redirectToRoute('adm_users', [], Response::HTTP_SEE_OTHER);
