@@ -44,10 +44,10 @@ class UsersController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-           // $usersRepository->add($user, true);
+            $usersRepository->add($user, true);
           
-           $em->persist($user);
-           $em->flush();
+           //$em->persist($user);
+           //$em->flush();
            
            return $this->redirectToRoute('adm_users', [], Response::HTTP_SEE_OTHER);
         }
@@ -114,7 +114,6 @@ class UsersController extends AbstractController
             //    $this->$manager->remove(user);
             //    $manager->flush();
         }
-
         return $this->redirectToRoute('adm_users', [], Response::HTTP_SEE_OTHER);
     }
 

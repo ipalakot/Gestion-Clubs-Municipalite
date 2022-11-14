@@ -6,6 +6,7 @@ use App\Entity\Users;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
@@ -15,6 +16,7 @@ class UsersType extends AbstractType
     {
         $builder
             ->add('noms', TextType::class, [
+                'required'   => false,
                 'label'=> 'Noms :'])
             ->add('prenoms', TextType::class, [
                 'label'=> 'Prenoms : '])
@@ -22,9 +24,10 @@ class UsersType extends AbstractType
                 'label'=> 'pseudo : '])
             ->add('adresse',TextType::class, [
                 'label'=> 'Adresse : '])
-            ->add('phone')
+            ->add('phone', TelType::class,[
+                'label'=> 'Phone :'])
             ->add('mail', EmailType::class,[
-                'label'=> 'Email :'])
+                'label'=> 'Emails :'])
         ;
     }
 
