@@ -8,10 +8,13 @@ use App\Form\UsersType;
 
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
+
 use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 /**
  * @Route("/users")
@@ -31,16 +34,20 @@ class UsersController extends AbstractController
     /**
      * @Route("/new", name="adm_users_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, UsersRepository $usersRepository): Response
+    public function new(Request $request, UsersRepository $usersRepository, EntityManagerInterface $em): Response
     {
         $user = new Users();
         $form = $this->createForm(UsersType::class, $user);
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $usersRepository->add($user, true);
-
-            return $this->redirectToRoute('adm_users', [], Response::HTTP_SEE_OTHER);
+           // $usersRepository->add($user, true);
+          
+           $em->persist($user);
+           $em->flush();
+           
+           return $this->redirectToRoute('adm_users', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('users/nouveau.html.twig', [
@@ -68,13 +75,17 @@ class UsersController extends AbstractController
     /**
      * @Route("/{id}/edit", name="adm_users_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Users $user, UsersRepository $usersRepository): Response
+    public function edit( EntityManagerInterface $em, Request $request, Users $user, UsersRepository $usersRepository): Response
     {
         $form = $this->createForm(UsersType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $usersRepository->add($user, true);
+            
+            //$usersRepository->add($user, true);
+            $em->persist($user);
+            $em->flush();
+           
 
             return $this->redirectToRoute('adm_users', [], Response::HTTP_SEE_OTHER);
         }
@@ -89,10 +100,17 @@ class UsersController extends AbstractController
     /**
      * @Route("/{id}", name="adm_users_suppr", methods={"POST"})
      */
-    public function suppr(Request $request, Users $user, UsersRepository $usersRepository): Response
+    public function suppr(ObjectManager $manager, Request $request, Users $user, UsersRepository $usersRepository): Response
+    
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $usersRepository->remove($user, true);
+            
+            // $usersRepository->remove($user, true);
+            
+            $manager= $this->getDoctrine()-getManager();
+                
+                $this->$manager->remove(user);
+                $manager->flush();
         }
 
         return $this->redirectToRoute('adm_users', [], Response::HTTP_SEE_OTHER);
