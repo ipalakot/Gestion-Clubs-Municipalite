@@ -89,6 +89,15 @@ use Symfony\Component\HttpFoundation\Request;
         ]);
     }
 
+    /**
+     * @Route("/{id}", name="adm_categorie_delete", methods={"POST"})
+     */
+    public function delete(Request $request, Categorie $categorie, CategorieRepository $categorieRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$categorie->getId(), $request->request->get('_token'))) {
+            $categorieRepository->remove($categorie, true);
+        }
 
-
+        return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
+    }
 }

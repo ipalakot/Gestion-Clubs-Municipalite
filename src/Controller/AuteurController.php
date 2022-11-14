@@ -113,4 +113,17 @@ class AuteurController extends AbstractController
             'auteurs'=>$auteurs
         ]);
     }
+
+    
+    /**
+     * @Route("/{id}", name="adm_auteur_suppr", methods={"POST"})
+     */
+    public function delete(Request $request, Auteur $auteur, AuteurRepository $auteurRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$auteur->getId(), $request->request->get('_token'))) {
+            $auteurRepository->remove($auteur, true);
+        }
+
+        return $this->redirectToRoute('app_auteur', [], Response::HTTP_SEE_OTHER);
+    }
 }
