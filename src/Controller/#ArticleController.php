@@ -4,43 +4,55 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Form\ArticleType;
+
 use App\Entity\Commentaire;
+
+use Symfony\Component\Form\Form;
 
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
 use Symfony\Component\HttpFoundation\Request;
+
+use Doctrine\Common\Persistence\ObjectManager;
+
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+// use Doctrine\Common\Persistance\ObjectManager;
+
+
 
 /**
- * @Route("/article")
+ * @Route("/article0")
  */
 class ArticleController extends AbstractController
 {
     /**
-     * @Route("/", name="app_article", methods={"GET"})
+     * @Route("/", name="app_article0")
      */
-    public function index(PaginatorInterface $paginator, Request $request, ArticleRepository $articleRepository): Response
+    public function index(PaginatorInterface $paginator, Request $request, ArticleRepository $articlesRepository): Response
     {
-        $donnees = $articleRepository->findAll();
+
+        $donnees = $articlesRepository->findAll();
 
         $articles = $paginator->paginate(
             $donnees, /* query NOT result */
         $request->query->getInt('page', 1), /*page number*/
         10 /*limit per page*/
     );
-    
-    return $this->render('article/index.html.twig', [
-           'articles' => $articles,
+
+        return $this->render('article/index.html.twig', [
+
+            'articles' => $articles,
         ]);
     }
 
+
     /**
-     * @Route("/new", name="app_articles_new", methods={"GET", "POST"})
+     * @Route("/new", name="app_articles_new0", methods={"GET", "POST"})
      */
     public function new(Request $request, ArticleRepository $articleRepository): Response
     {
@@ -60,8 +72,33 @@ class ArticleController extends AbstractController
         ]);
     }
 
+
     /**
-     * @Route("/{id}", name="app_article_affichage", methods={"GET"})
+     * @Route("/{id}/edit", name="adm_article_edit0", methods={"GET", "POST"})
+     */
+    public function edit(Request $request, Article $article, ArticleRepository $articleRepository): Response
+    {
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $articleRepository->add($article, true);
+
+            return $this->redirectToRoute('app_article', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('article/edit.html.twig', [
+            'article' => $article,
+            'form' => $form,
+        ]);
+    }
+
+
+
+
+    /**
+     * @Route("/{id}", name="app_article_affichage0")
+     * 
      */
     public function affichage(EntityManagerInterface $entityManager, Article $articles, Request $request, $id)
     {    
@@ -100,39 +137,6 @@ class ArticleController extends AbstractController
 
 
     /**
-     * @Route("/{id}/edit", name="app_article_edit", methods={"GET", "POST"})
-     */
-    public function editer(Request $request, Article $article, ArticleRepository $articleRepository): Response
-    {
-        $form = $this->createForm(ArticleType::class, $article);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $articleRepository->add($article, true);
-
-            return $this->redirectToRoute('app_article', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('article/edit.html.twig', [
-            'article' => $article,
-            'form' => $form,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="app_articles_suppr", methods={"POST"})
-     */
-    public function supprimer(Request $request, Article $article, ArticleRepository $articleRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
-            $articleRepository->remove($article, true);
-        }
-
-        return $this->redirectToRoute('app_article', [], Response::HTTP_SEE_OTHER);
-    }
-
-    
-    /**
      * @Route("/catalogue", name="app_catalogue")
      */
     public function catalogue(): Response
@@ -152,4 +156,19 @@ class ArticleController extends AbstractController
 
         ]);
     }
+
+
+
+    /**
+     * @Route("/{id}", name="adm_articles_suppr", methods={"POST"})
+     */
+    public function suppression(Request $request, Article $article, ArticleRepository $articleRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+            $articleRepository->remove($article, true);
+        }
+
+        return $this->redirectToRoute('app_article', [], Response::HTTP_SEE_OTHER);
+    }
+
 }

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Article{% endblock %}
+{% block title %}Liste des Biens!{% endblock %}
 
 {% block body %}
 
@@ -18,18 +18,16 @@
                     <hr style="width:100%; height:10px; background-color:#1B4F72 ">
 
             {# {{ form_widget(form) }} #}
-            {# {{ form_start(form) }} #}
-            {# {{ form_widget(form) }} #}
 
-            {# <button type="submit" class="btn btn-success"> Ajouter cet article</button> #}
+            {{ form_start(form) }}
 
-            {# {{ form_end(form) }} #}
-            
-            {{ include('article/_form.html.twig') }}
-             <a href="{{ path('app_article') }}">Liste des articles</a>
+                {{ form_widget(form) }}
 
-            
-                        </div>
+            <button type="submit" class="btn btn-success"> Ajouter cet article</button>
+
+            {{ form_end(form) }}
+
+            </div>
             </div>
             </div>
             </article>
@@ -37,6 +35,3 @@
 
 
 {% endblock %}
-
-
-
