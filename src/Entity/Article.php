@@ -7,8 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
+ * @UniqueEntity("titre")
  */
 class Article
 {
@@ -21,12 +25,18 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\Length(
+     *      min = 5,
+     *      max = 50,
+     *      minMessage = "Le titre doit avoir 1 minimum de {{ limit }} characteres long",
+     *      maxMessage = "Votre Titre de ne pas depasser {{ limit }} characteres")
      */
     private $titre;
 
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+
      */
     private $image;
 
