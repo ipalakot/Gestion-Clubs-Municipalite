@@ -2,30 +2,28 @@
 
 namespace App\Form;
 
-use App\Entity\Article;
+use App\Entity\Auteur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class Article1Type extends AbstractType
+class AuteurType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('titre')
-            ->add('image')
-            ->add('resume')
-            ->add('contenu')
-            ->add('createdAt')
-            ->add('categorie')
-            ->add('auteur')
+            ->add('noms')
+            ->add('prenoms')
+            ->add('adresse')
+            ->add('mail')
+            ->add('phone')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Article::class,
+            'data_class' => Auteur::class,
         ]);
     }
 }
