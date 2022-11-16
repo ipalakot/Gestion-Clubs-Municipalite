@@ -2,51 +2,47 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\ArticleRepository;
+
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+
+/**
+ * @Route("/exoclass")
+ */
 
 class ExerciceController extends AbstractController
 {
     /**
-     * @Route("/exercice", name="app_exercice")
+     * Undocumented function
+     * @Route("/find", name="cls_find")
+     * @param ArticleRepository $articlerepo
+     * @return Response
      */
-    public function index(): Response
+    public function index(ArticleRepository $articlerepo ): Response
     {
-        return $this->render('users/index.html.twig', [
-            'controller_name' => 'ExerciceController',
-            'article'=>[
-                    'titre'=>'Developpeur 2.0',
-                    'auteur'=>'Georges Locas',
-                    'resume'=>'Ce livre est basé sur le Developpment en Java EE',
-                    'commentaire'=>'2',
-            ],
+        
+        $articles = $articlerepo->find(	
+            200);
+        
+        return $this->renderForm('exercice/query.html.twig', [
+            'articles' => $articles,
 
-            'stagiaires'=>[
-                [
-                    'pseudo'=>'stag1',
-                    'nom'=>'Ouahs',
-                    'prenom'=>'Khalil',
-                    'promo'=>'22-23',
-                ],
-
-                [
-                    'pseudo'=>'stag2',
-                    'nom'=>'Sekkai',
-                    'prenom'=>'Marwan',
-                    'promo'=>'22-23',
-                ],
-
-                                [
-                    'pseudo'=>'stag3',
-                    'nom'=>'Bojs',
-                    'prenom'=>'Quentin',
-                    'promo'=>'22-23',
-                ],
-
-
-            
-            ],
         ]);
     }
+
+    /**
+     * @Route("/find", name="app_findoneby")
+     * @param ArticleRepository $articlerep
+     * @return Response
+     */
+    public function findoneby(ArticleRepository $articlerep):Response
+    {
+        return $this->render('exercice/findoneby.html.twig', [
+
+        ]);
+    }
+        
 }

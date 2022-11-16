@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article index{% endblock %}
+
+{% block body %}
+
+    {% include("menus/navigation_admin.html.twig") %}
+    {% include("headers/header_admin.html.twig") %}
+
+        <div class="container">
+        <!-- Article main content -->
+        <article class="col-md-12 maincontent">
+            <div class="container">
+                <div class="row">	
+                    <h1>Liste des Articles</h1>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Titre</th>
+                                <th>Categorie</th>
+                                 {# <th>Image</th> #}
+                                <th>Auteurs</th> 
+                                {# <th>Resumé</th> #}
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+
+                        <tbody>
+                                <tr>
+                                    <td>{{ articles.id }}</td>
+                                    <td>{{ articles.titre }}</td>
+                                    <td>{{ articles.categorie.titre }}</td>
+                                   {# <td>{{ articles.image }}</td> #}
+                                    <td>{{ articles.auteur.noms }} {{ articles.auteur.prenoms }}</td>
+                                    {# <td>{{ articles.resume}}</td> #}
+                                    <td> 
+                                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+<br><br><br><br><br><br><br><br><br><br
+                                        </div>
+                                    
+                                    </td>
+                                </tr>
+
+                        </tbody>
+                    </table> 
+
+                    <a href="{{ path('app_articles_new') }}">Ajouter 1 article></a>
+                </div>
+            </div>
+            
+        </article>
+
+
+
+        
+    </div>
+
+{% endblock%}
+                        
+                        
+                        
+                        
+          

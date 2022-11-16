@@ -98,6 +98,25 @@ class ArticleController extends AbstractController
     }
 
 
+    /**
+     * Afficher 1 Article à partir de son ID
+     * @Route("/get/{id}", name="app_article_affichage2")
+     * @param [type] $id
+     * @param ArticleRepository $articleRepository
+     * @return Response
+     */
+    public function getArticle($id, ArticleRepository $artrepo)
+    {
+        //$artrepo = $this->getDoctrine()->getRepository(Article::class);
+        
+        $articles = $artrepo->find($id);
+
+        return $this->render('article/affichage2.html.twig', [
+            'articles' => $articles,
+        ]);
+    }
+
+    
 
     /**
      * @Route("/{id}/edit", name="app_article_edit", methods={"GET", "POST"})
