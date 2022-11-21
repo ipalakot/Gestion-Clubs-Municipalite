@@ -116,8 +116,55 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    
+    /**
+     * Afficher 1 Article à partir de son Titre
+     * @Route("/gettitle/test", name="app_article_affichage3")
+     * @param ArticleRepository $articleRepository
+     * @return Response
+     */
+    public function getArticleTitle(ArticleRepository $artrepo)
+    {
+        //$artrepo = $this->getDoctrine()->getRepository(Article::class);
+        
+        $articles = $artrepo->findOneBy(array('titre' => 'programmation'));
 
+        return $this->render('article/affichage3.html.twig', [
+            'articles' => $articles,
+        ]);
+    }
+
+    /**
+     * Afficher 1 Article tous les Article sans fair ede Trie
+     * @Route("/gettest/all", name="app_article_All", methods={"GET"})
+     * @return Response
+     */
+    public function getAll(Request $request, ArticleRepository $articleRepository): Response
+    {
+        //$articles = $articleRepository->findAll();
+
+    return $this->render('article/index_all.html.twig', [
+           'articles' => $articleRepository->findAll(),
+        ]);
+    }
+
+    
+    /**
+     * Afficher 1 Article tous les Article avec des critères
+     * @Route("/gettest/articritere", name="app_article_All", methods={"GET"})
+     * @return Response
+     */
+    public function getAllWithCrit(Request $request, ArticleRepository $articleRepository): Response
+    {
+        $articles = $articleRepository->findBy(
+            ['titre' => 'developpement'],
+            ['id' => 'ASC']
+        );
+
+    return $this->render('article/index_all.html.twig', [
+           'articles' => $articles,
+        ]);
+    }
+    
     /**
      * @Route("/{id}/edit", name="app_article_edit", methods={"GET", "POST"})
      */
