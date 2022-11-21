@@ -10,6 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+use Cocur\Slugify\Slugify;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  * @UniqueEntity("titre")
@@ -32,6 +36,12 @@ class Article
      *      maxMessage = "Votre Titre de ne pas depasser {{ limit }} characteres")
      */
     private $titre;
+
+    /**
+     * @Gedmo\Slug(fields={"titre"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
 
     /**
@@ -82,6 +92,19 @@ class Article
     {
         return $this->id;
     }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
 
     public function getTitre(): ?string
     {

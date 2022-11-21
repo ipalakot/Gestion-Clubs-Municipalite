@@ -60,6 +60,21 @@ class ArticleController extends AbstractController
         ]);
     }
 
+   /**
+    * Affichage avec Slug 
+    * @Route("/titre/{slug}", name="app_article_affichage_slug", requirements={"slug":"[a-z0-9\-]*"})
+    * @param Article $article
+    * @param Request $request
+    * @return void
+    */
+   public function affichageSlug(Article $article, Request $request){
+
+    return $this->render('article/affichage_slug.html.twig',
+    ['article' => $article]);
+
+   }
+
+
     /**
      * @Route("/{id}", name="app_article_affichage", methods={"GET"})
      */
