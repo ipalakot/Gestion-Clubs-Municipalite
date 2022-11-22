@@ -66,6 +66,11 @@ class Users
   
     private $mail;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $age;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -139,6 +144,18 @@ class Users
     public function setMail(string $mail): self
     {
         $this->mail = $mail;
+
+        return $this;
+    }
+
+    public function getAge(): ?int
+    {
+        return $this->age;
+    }
+
+    public function setAge(int $age): self
+    {
+        $this->age = $age;
 
         return $this;
     }

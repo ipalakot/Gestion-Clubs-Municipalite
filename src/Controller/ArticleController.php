@@ -5,11 +5,9 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Entity\Commentaire;
-
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -61,7 +59,7 @@ class ArticleController extends AbstractController
     }
 
    /**
-    * Affichage avec Slug 
+    * Affichage d'un article avec Slug & ID 
     * @Route("/titre/{slug}", name="app_article_affichage_slug", requirements={"slug":"[a-z0-9\-]*"})
     * @param Article $article
     * @param Request $request
@@ -76,10 +74,19 @@ class ArticleController extends AbstractController
 
 
     /**
-     * @Route("/{id}", name="app_article_affichage", methods={"GET"})
+     * Affichage d'un article avec Slug & ID 
+     * @Route("/{slug}-{id}", name="app_article_affichage", methods={"GET"}, requirements={"slug":"[a-z0-9\-]*"})
+     * @param Article $article
+     * @param Request $request
      */
-    public function affichage(EntityManagerInterface $entityManager, Article $articles, Request $request, $id)
+    public function affichage(EntityManagerInterface $entityManager, Article $articles, string $slug, Request $request, $id)
     {    
+        if($articles->getSlug() !==$slug){
+            return $this->redirectToRoute('app_article_affichage',
+            ['id'=>$articles->getId(),
+            'slug'=>$articles->getslug()],
+            301);
+        }
         $commentaire = new Commentaire();
         //$commentairesForm = $this->createForm(CommentairesType::class, $commentaires);
 
@@ -87,27 +94,19 @@ class ArticleController extends AbstractController
                 ->add('auteur')
                 ->add('contenu') 
                 ->getForm();
-       
         $form->handleRequest($request);
-
         if($form->isSubmitted() && $form->isValid()) {
             $commentaire->setCreatedAt(new \DateTime())
                      ->setArticle($articles);
-            
             $entityManager->persist($commentaire);
-
             $entityManager->flush();
-
             return $this->redirectToRoute('app_article_affichage',  ['id' => $articles->getId()
             ]);
     }
-
         return $this->render('article/affichage.html.twig', [
-
         'articles'=>$articles,
         'form'=> $form->createView()
         //'commentaires '=> $commentaires ,
-
         ]);
 
     }
@@ -212,7 +211,20 @@ class ArticleController extends AbstractController
         return $this->redirectToRoute('app_article', [], Response::HTTP_SEE_OTHER);
     }
 
-    
+    /**
+     * Undocumented function
+     * @Route("/list/categ", name="app_categaf", methods={"GET"})
+     * @return void
+     */
+    public function findCat(ArticleRepository $articles)
+    {   
+        $articles = $articles->findCategorie();
+        return $this->render('article/index_cat.html.twig', [
+            'articles' => $articles,
+        ]);
+    }
+
+
     /**
      * @Route("/catalogue", name="app_catalogue")
      */

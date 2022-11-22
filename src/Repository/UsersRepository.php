@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * @extends ServiceEntityRepository<Users>
@@ -39,12 +40,36 @@ class UsersRepository extends ServiceEntityRepository
         }
     }
 
+
+/**
+* @return Users[] Returns an array of Users objects
+*/
+    public function getUsersBetween($ageMin, $ageMax): array
+    {
+        $query = $this->createQueryBuilder('u')
+         // ->select('u')
+            ->where('u.age <= :agemax')
+            ->andWhere('u.age >= :agemin')
+            ->setParameters(
+                array('agemin'=> $ageMin,
+                    'agemax'=> $ageMax,
+                    )
+            )
+            ->orderBy('u.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery();
+        return $query->getResult();
+    }
+
+
+
 //    /**
 //     * @return Users[] Returns an array of Users objects
 //     */
 //    public function findByExampleField($value): array
 //    {
-//        return $this->createQueryBuilder('u')
+//        return $this->createQueryBuilder()
+//            ->fro
 //            ->andWhere('u.exampleField = :val')
 //            ->setParameter('val', $value)
 //            ->orderBy('u.id', 'ASC')

@@ -21,6 +21,7 @@ class UsersFixtures extends Fixture
             $users ->setNoms($faker->name)
                     ->setPrenoms($faker->lastname)
                     ->setPseudo($faker->text)
+                    ->setAge($faker->numberBetween(18, 90))
                     ->setAdresse($faker->address)
                     ->setMail($faker->email)
                     ->setPhone($faker->numberBetween(111111, 999999));

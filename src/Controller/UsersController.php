@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Users;
 use App\Repository\UsersRepository;
 use App\Form\UsersType;
-
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,6 +24,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class UsersController extends AbstractController
 {
     /**
+     * Afficher tous les Users
      * @Route("/", name="adm_users", methods={"GET"})
      */
     public function index(UsersRepository $usersRepository): Response
@@ -58,6 +59,36 @@ class UsersController extends AbstractController
         ]);
     }
 
+   /**
+     * Afficher les Users par le Nom
+     * @Route("/list/", name="app_user_names", methods={"GET"})
+     * @return Response
+     */
+    public function getAllWithCrit(Request $request, UsersRepository $users): Response
+    {
+        $users = $users->findByNoms('');
+
+    return $this->render('users/index2.html.twig', [
+           'users' => $users,
+        ]);
+    }
+
+     /**
+     * Afficher les Users entre une tranche d'age
+     * @Route("/list2/", name="app_user_tranchesage", methods={"GET"})
+     * @return Response
+     */
+    public function listAgeBetween(Request $request, UsersRepository $users)
+    {
+        $users = $users->getUsersBetween(30, 40);
+
+    return $this->render('users/index2.html.twig', [
+           'users' => $users,
+        ]);
+    }
+
+
+    
     /**
      * @Route("/{id}", name="adm_users_display", methods={"GET"} )
      *
@@ -74,6 +105,8 @@ class UsersController extends AbstractController
         ]);
     }
 
+    
+    
     /**
      * @Route("/{id}/edit", name="adm_users_edit", methods={"GET", "POST"})
      */
