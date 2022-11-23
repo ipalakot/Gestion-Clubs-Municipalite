@@ -37,51 +37,6 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    /**
-     * Affichage des ARticles dans l'ordre Ascendant
-     * Afficher les article dans l'ordre ASC
-     * @Route("/asc", name="app_article_asc", methods={"GET"})
-     * @param PaginatorInterface $paginator
-     * @param Request $request
-     * @param ArticleRepository $articleRepository
-     * @return Response
-     */
-    public function listArtAsc(PaginatorInterface $paginator, Request $request, ArticleRepository $articleRepository): Response
-    {
-        $donnees = $articleRepository->findBy([],['titre' => 'asc']);
-
-        $articles = $paginator->paginate(
-            $donnees, /* query NOT result */
-        $request->query->getInt('page', 1), /*page number*/
-        30 /*limit per page*/
-    );
-    
-    return $this->render('article/index.html.twig', [
-           'articles' => $articles,
-        ]);
-    }
-    
-    /**
-     * Afficher les article dans l'ordre Desc
-     * @Route("/desc", name="app_article_desc", methods={"GET"})
-     */
-    public function listArtDesc(PaginatorInterface $paginator, Request $request, ArticleRepository $articleRepository): Response
-    {
-        $donnees = $articleRepository->findBy([],['titre' => 'desc']);
-
-        $articles = $paginator->paginate(
-            $donnees, /* query NOT result */
-        $request->query->getInt('page', 1), /*page number*/
-        30 /*limit per page*/
-    );
-    
-    return $this->render('article/index.html.twig', [
-           'articles' => $articles,
-        ]);
-    }
-
-
-
 
     /**
      * @Route("/new", name="app_articles_new", methods={"GET", "POST"})
