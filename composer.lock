@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d410783d5781fe5d1be151eaeac6c423",
+    "content-hash": "e9eed2168c0fc732746fe25602034f71",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2089,6 +2089,51 @@
                 }
             ],
             "time": "2021-12-21T14:34:37+00:00"
+        },
+        {
+            "name": "metrakit/faker-eddy-malou",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Metrakit/faker-eddy-malou.git",
+                "reference": "ed4876182c3beceb64cedc9da052b48e59ad3d42"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Metrakit/faker-eddy-malou/zipball/ed4876182c3beceb64cedc9da052b48e59ad3d42",
+                "reference": "ed4876182c3beceb64cedc9da052b48e59ad3d42",
+                "shasum": ""
+            },
+            "require": {
+                "fzaninotto/faker": "~1",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Metrakit\\EddyMalou\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordane JOUFFROY",
+                    "email": "contact@jordane.net"
+                }
+            ],
+            "description": "Use Eddy Malou sentences for your dummy texts",
+            "homepage": "https://github.com/Metrakit/faker-eddy-malou",
+            "support": {
+                "issues": "https://github.com/Metrakit/faker-eddy-malou/issues",
+                "source": "https://github.com/Metrakit/faker-eddy-malou/tree/master"
+            },
+            "time": "2016-04-21T18:56:40+00:00"
         },
         {
             "name": "mhujer/breadcrumbs-bundle",

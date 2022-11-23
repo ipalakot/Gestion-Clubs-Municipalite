@@ -19,14 +19,14 @@ class ArticleFixtures extends Fixture
         $faker = \Faker\Factory::create('fr_FR');
 
         // je mets en place 5 categories
-        for ($i=0; $i<2; $i++) {
+        for ($i=0; $i<4; $i++) {
             $categorie = new Categorie();
             $categorie -> setTitre($faker->sentence($nb = 5, $asText = false))
                        ->setResume($faker->text());
             $manager->persist($categorie);
 
             // Creation de mes auteurs
-            for ($k=0; $k<2; $k++) {
+            for ($k=0; $k<5; $k++) {
                 $auteur = new Auteur();
                 $auteur ->setNoms($faker->lastname)
                         ->setPrenoms($faker->firstname)
@@ -39,13 +39,13 @@ class ArticleFixtures extends Fixture
                 // Creation de 10 Article
                 for ($j=0; $j<3; $j++) {
                     $article = new Article();
-                    $article->setTitre($faker->sentence($nb = 5, $asText = false))
+                    $article->setTitre($faker->realText($maxNbChars = 60, $indexSize = 2))
                         ->setAuteur($auteur)
                         ->setCreatedAt(new \DateTime())
                         ->setCategorie($categorie)
-                        ->setImage($faker->imageUrl(350, 350))
-                        ->setResume($faker->text())
-                        ->setContenu($faker->realText($maxNbChars = 2000, $indexSize = 2));
+                        ->setImage($faker->image(null, 360, 360, 'animals', true, true, 'cats', true, 'jpg'))
+                        ->setResume($faker->realText(rand(10, 100)))
+                        ->setContenu($faker->realText($maxNbChars = 5000, $indexSize = 2));
                        // ->setCommentaire($faker->text());
                     $manager->persist($article);
 

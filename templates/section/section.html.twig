@@ -17,9 +17,9 @@
                             <div class="card-body p-4">
                                 <div class="text-center">
                                 <!-- Titre de l'article -->
-                                
-                                 <a href="{{path('app_article_affichage', {'id': article.id})}}"> <h5 class="fw-bolder">{{ article.titre}} </h5> </a> 
-
+            
+                                 {#<a href="{{path('app_article_affichage', {'id': article.id})}}"> <h5 class="fw-bolder">{{ article.titre}} </h5> </a> #}
+                                 <a href="{{ path('app_article_affichage', {'id': article.id, 'slug': article.slug}) }}" <h5 class="fw-bolder">{{ article.titre}} </h5> </a><br>
                                 <!-- Categorie de l'article -->
                                 <u>{{article.categorie.titre }} </u><br>
 

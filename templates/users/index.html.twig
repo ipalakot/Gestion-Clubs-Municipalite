@@ -36,10 +36,10 @@
                     <td> 
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
-                                    <a href="{{path('adm_users_display', {'id': user.id} ) }}" class="btn btn-primary"> Display /  </a> 
-                                    <a href="{{path('adm_users_edit', {'id': user.id} ) }}" class="btn btn-primary"> Edit /  </a> 
-                                    {{ include('users/_delete_form.html.twig') }}   
-                                    {#<a href="{{path('adm_users_suppr', {'id': user.id} ) }}" class="btn btn-primary"> Suppr /  </a> #}
+                                    <th><a href="{{path('adm_users_display', {'id': user.id} ) }}" class="btn btn-dark"> Display</a> </th>
+                                    <th><a href="{{path('adm_users_edit', {'id': user.id} ) }}" class="btn btn-dark"> Edit</a> </th>
+                                    <th>{{ include('users/_delete_form.html.twig') }}   </th>
+                                    {#<a href="{{path('adm_users_suppr', {'id': user.id} ) }}" class="btn btn-dark"> Suppr</a> #}
                                 </div>
                             </div> 
                     
@@ -52,7 +52,7 @@
             {% endfor %}
         </tbody>
     </table>
-<a href="{{path('adm_users_new')}}" class="btn btn-primary"> Ajouter 1 Utilisateur /  </a> <br><br><br><br
+<a href="{{path('adm_users_new')}}" class="btn btn-dark"> Ajouter 1 Utilisateur /  </a> <br><br><br><br
     </div></div></div>
 
 

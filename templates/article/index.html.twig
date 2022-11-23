@@ -12,18 +12,19 @@
         <article class="col-md-12 maincontent">
             <div class="container">
                 <div class="row">	
-                    <h1>Liste des Articles</h1>
+                    <h3>Liste des Articles</h3>
+                    <hr>
 
                     <table class="table">
                         <thead>
                             <tr>
                                 <th>Id</th>
+                                {# <th>Image</th> #} 
                                 <th>Titre</th>
                                 <th>Categorie</th>
-                                 {# <th>Image</th> #}
                                 <th>Auteurs</th> 
-                                {# <th>Resumé</th> #}
-                                <th>Action</th>
+                                <th>Date</th> 
+                                <th></th>
                             </tr>
                         </thead>
 
@@ -32,19 +33,21 @@
                             {% for article in articles %}
                                 <tr>
                                     <td>{{ article.id }}</td>
+                                    {# <td>{{ article.image }}</td> #}
                                     <td>{{ article.titre }}</td>
                                     <td>{{ article.categorie.titre }}</td>
-                                   {# <td>{{ article.image }}</td> #}
+                                   
                                     <td>{{ article.auteur.noms }} {{ article.auteur.prenoms }}</td>
-                                    {# <td>{{ article.resume}}</td> #}
+                                    <td> {{ article.createdAt | date('d/m/Y') }} </td>
                                     <td> 
-                                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                            <div class="text-center">
+                                        <div class="container bg-transparent">
                                                 {# <a href="{{ path('app_article_affichage', {'id': article.id}) }}" class="btn btn-success">Affich</a>#}
 
-                                                <a href="{{ path('app_article_affichage', {'id': article.id, 'slug': article.slug}) }}" class="btn btn-success">Affich</a>
-                                                <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-warning">Edit</a>
-                                                {{ include('article/_delete_form.html.twig') }}
+                                                
+                                                    <th><a href="{{ path('app_article_affichage', {'id': article.id, 'slug': article.slug}) }}" class="btn btn-success">Affich</a></th>
+                                                    <th><a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-warning">Edit</a></th>
+                                                    <th>{{ include('article/_delete_form.html.twig') }} </a></th>
+                                               
                                                
                                             </div>
                                         </div>
@@ -56,11 +59,14 @@
                                     <td colspan="5">Aucun article pour lemoment !</td>
                                 </tr>
                             {% endfor %}
+                            
                         </tbody>
+                        
                     </table>
 
-                    <a href="{{ path('app_articles_new') }}">Ajouter 1 article></a>
+                   
                 </div>
+                 <a href="{{ path('app_articles_new') }}"  class="btn btn-dark">Ajouter un nouvel article></a>
             </div>
             
         </article>

@@ -50,6 +50,20 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    
+    /**
+     * @return Articles[] Returns an array of Articles objects
+     */
+    public function findArtAsc()
+    {
+        return $this->createQueryBuilder('a')
+            ->Where('a.categorie = 1')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+
 //    /**
 //     * @return Article[] Returns an array of Article objects
 //     */

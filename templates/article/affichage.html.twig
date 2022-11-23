@@ -2,61 +2,74 @@
 
 
 {% block body %}
-    {% include("menus/navigation_admin.html.twig") %}
+    {% include("menus/navigation.html.twig") %}
     {% include("headers/header.html.twig") %}
 
      
 <div class="container">
     <article>
-            <h2> {{articles.titre}}</h2> <br>                    
-            <h6> Auteur : {{articles.auteur.noms }} </h6>  <br>
-            <h6> Categorie : {{articles.categorie.titre}}</h6> <br>
-            <h6> Date de Création :  {{ articles.createdAt | date('d/m/Y') }}  </h6> 
-             
-            <div class="clearfix">
-                <img src="https://via.placeholder.com/700x400" class="col-md-6 float-md-end mb-3 ms-md-3" alt="...">
-                <p>
-                    {{articles.contenu}}
-                </p>
-            </div>
+
+
+<div class="list-group">
+    <a href="#" class="list-group-item list-group-item-action active">
+        <h2> {{articles.titre}}</h2>
+        <h6> ~ Auteur : {{articles.auteur.noms }} {{articles.auteur.prenoms }}</h6>  
+        <h6> ~ Categorie : {{articles.categorie.titre}}</h6> 
+        <h6> ~ Date de Création :  {{ articles.createdAt | date('d/m/Y') }}  </h6> 
+    </a>
+</div>
+
+
+<div class="card border-primary justify-content" >
+  <div class="card-body justify-content">
+        <img src="{{ asset('images/3.1.jpeg') }}" class="col-md-6 float-md-end mb-3 ms-md-3" alt="..."> 
+            <p class="justify-content">
+                    {{articles.contenu|nl2br}}
+            </p>
             <br> 
+        </p>
+    </div>
+</div>
             
-            <!-- Affichage du Formulaire de Commentaire -->
-
-            <div>
-                <p class="bg-dark text-white">Ajouter votre commentaire  </p>
-                {{ form_start(form) }}
-                    {{ form_widget(form) }}
-                  
-                    <button class="btn btn-primary">{{ button_label|default('Sauvegardez') }}</button>
-                {{ form_end(form) }}
-
-            </div> 
+<!-- Affichage du Formulaire de Commentaire -->
+<p></p><p></p>
+<div class="card border-primary">
+    <p class="bg-dark text-white">Ajouter votre commentaire  </p>
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button class="btn btn-dark">{{ button_label|default('Sauvegardez') }}</button>
+            {{ form_end(form) }}
+</div> 
+<p></p><p></p>
             
           
-            <!-- Affichage des Commentaires -->
-           
-          <br><br> <h5><p class="bg-dark text-white">   Liste de Commentaires: ({{ articles.commentaires | length}})  </p></h5>
+<!-- Affichage des Commentaires -->
 
-           
-            <div>
-                <hr size="4" color="blue">
-                {% for commentaire in articles.commentaires %}
-                    <div class="comment">
-                        <div class="row">
-                            <div class="col-1">
-                                <small>{{ commentaire.createdAt | date('d/m/y') }} / </small>
-                            </div>
-                        <div class="col-8">
-                            <h5>{{ commentaire.auteur }}</h5>
+    <div class="card border-primary">
+        <h5><p class="bg-dark text-white">   Liste de Commentaires: ({{ articles.commentaires | length}})  </p></h5>
+            {% for commentaire in articles.commentaires %}
+                <div class="comment">
+                    <div class="row">
+                        <div>
+                            {{ commentaire.createdAt | date('d/m/y') }} /  -- 
+                            {{ commentaire.auteur }}
                         </div>
-                        <div class="col-9">
+                        <div>
                             {{ commentaire.contenu }}
                         </div>
-                    </div><br>
-                {% endfor %}
-            </div>
-        </article>   
-        <a href="{{path('app_article')}}" class="btn btn-primary"> Retour / Index  </a> <br><br><br><br>   
+                    </div>
+                </div>
+                <hr size="3" color="blue">
+            {% endfor %}
     </div>
+    </article>   
+    <a href="{{path('app_article')}}" class="btn btn-dark"> Retour / Index  </a> <br><br><br><br>   
+    </div>
+
+
+
+
+
+
+
 {% endblock%}
