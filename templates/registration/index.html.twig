@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+        {% include("menus/navigation_admin.html.twig") %}
+        {% include("headers/header_admin.html.twig") %}
+
+    <div class ="col-lg-12 bg-light">
+        <div class ="container-sm">   <div>
+                <h3> Gestion des utilisateurs </h3>
+                <hr>
+        </div>
+
+         <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Noms </th>
+                <th>Prenoms </th>
+                <th>Login</th>
+                <th>Mails </th> 
+                <th>Roles</th> 
+                <th>Password</th> 
+
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+
+                    <td> xx </td>
+                    <td> xx </td>
+                    <td> xx </td>
+
+                    
+                    <td>{{ user.email}}</td>
+                    {# <td> {{ user.role ? user.role|json_encode '' }}</td>#}
+
+                    {% for role in user.roles %}
+                        {% if role == "ROLE_USER" %} 
+                            <td> Utilisateur <td>
+                         {% endif %}
+                    {% endfor %}
+
+                    <td> xx </td>
+
+                    <td> 
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <th><a href="{{path('adm_users_display', {'id': user.id} ) }}" class="btn btn-dark"> Display</a> </th>
+                                    <th><a href="{{path('adm_users_edit', {'id': user.id} ) }}" class="btn btn-dark"> Edit</a> </th>
+
+                                    {#<a href="{{path('adm_users_suppr', {'id': user.id} ) }}" class="btn btn-dark"> Suppr</a> #}
+                                </div>
+                            </div> 
+                    
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">Aucun article pour lemoment !</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+<a href="{{path('user_enregistrement')}}" class="btn btn-dark"> Ajouter 1 Utilisateur /  </a> <br><br><br><br
+    </div></div></div>
+
+
+{% endblock %}
+
+
+
+
