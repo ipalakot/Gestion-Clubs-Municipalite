@@ -7,13 +7,16 @@ use App\Entity\Article;
 use App\Entity\Categorie;
 
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ArticleType extends AbstractType
 {
@@ -50,10 +53,12 @@ class ArticleType extends AbstractType
                     'day' => 'Day',
                     ],
                 ])
-            ->add('image')
-            ->add('resume', TextareaType::class, [
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Image à inserrer'
+            ])
+            ->add('resume', CKEditorType::class, [
                 'label'=> 'Resume :'])
-            ->add('contenu', TextareaType::class, [
+            ->add('contenu', CKEditorType::class, [
                 'label'=> 'Texte :'])
         ;
     }
