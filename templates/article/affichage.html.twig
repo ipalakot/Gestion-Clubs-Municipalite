@@ -20,11 +20,11 @@
 </div>
 
 
-<div class="card border-primary justify-content" >
+<div class="card border-primary" >
   <div class="card-body justify-content">
-        <img src="{{ asset('images/3.1.jpeg') }}" class="col-md-6 float-md-end mb-3 ms-md-3" alt="..."> 
+        <img src="{{ vich_uploader_asset(articles, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" alt="..."> 
             <p class="justify-content">
-                    {{articles.contenu|nl2br}}
+                    {{articles.contenu| raw}}
             </p>
             <br> 
         </p>

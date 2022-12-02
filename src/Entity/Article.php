@@ -11,17 +11,17 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  * @UniqueEntity("titre")
- * @Uploadable
+ * @Vich\Uploadable
  */
 class Article
 {
@@ -47,26 +47,6 @@ class Article
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
-
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @var string
-     */
-    private $image;
-
-    /**
-     * @Vich\UploadableField(mapping="image", fileNameProperty="image")
-     * @var File
-     */
-    private $imageFile;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @var \DateTime
-     */
-    private $updatedAt;
-
 
     /**
      * @ORM\Column(type="text")
@@ -100,6 +80,34 @@ class Article
      * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="article")
      */
     private $commentaires;
+
+    
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="articles_images", fileNameProperty="imageName")
+     * 
+     * @var File|null
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @var string|null
+     */
+    private $imageName;
+
+
+    /**
+     * @var \DateTime $updated_at
+     * 
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+
 
     public function __construct()
     {
@@ -227,32 +235,54 @@ class Article
         return $this;
     }
 
-    public function setImageFile(File $image = null)
+   
+    
+/**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
     {
-        $this->imageFile = $image;
+        $this->imageFile = $imageFile;
 
-        // VERY IMPORTANT:
-        // It is required that at least one field changes if you are using Doctrine,
-        // otherwise the event listeners won't be called and the file is lost
-        if ($image) {
-            // if 'updatedAt' is not defined in your entity, use another property
-            $this->updatedAt = new \DateTime('now');
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
         }
     }
 
-    public function getImageFile()
+    public function getImageFile(): ?File
     {
         return $this->imageFile;
     }
 
-    public function setImage($image)
+    public function setImageName(?string $imageName): void
     {
-        $this->image = $image;
+        $this->imageName = $imageName;
     }
 
-    public function getImage()
+    public function getImageName(): ?string
     {
-        return $this->image;
+        return $this->imageName;
+    }
+
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 
 }

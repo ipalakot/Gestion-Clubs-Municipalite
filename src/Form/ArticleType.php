@@ -53,13 +53,14 @@ class ArticleType extends AbstractType
                     'day' => 'Day',
                     ],
                 ])
-            ->add('imageFile', VichImageType::class, [
-                'label' => 'Image à inserrer'
-            ])
-            ->add('resume', CKEditorType::class, [
-                'label'=> 'Resume :'])
-            ->add('contenu', CKEditorType::class, [
-                'label'=> 'Texte :'])
+                ->add('imageFile', VichImageType::class,[
+                    'label' => 'Image / Photo'] 
+                )
+
+                ->add('resume', CKEditorType::class, [
+                    'label'=> 'Resume :'])
+                ->add('contenu', CKEditorType::class, [
+                    'label'=> 'Texte :'])
         ;
     }
 
