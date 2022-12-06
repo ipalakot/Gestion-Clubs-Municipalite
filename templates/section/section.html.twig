@@ -10,7 +10,7 @@
                         <!-- Product image-->
                         <img
                             class="card-img-top"
-                            src="{{ vich_uploader_asset(article, 'imageFile') }}" 
+                            src="{{ vich_uploader_asset(article, 'imageFile') | imagine_filter('small_sets') }}" class="img-fluid img-thumbnail"
                             alt="..."
                         />
                         <!-- Product details-->

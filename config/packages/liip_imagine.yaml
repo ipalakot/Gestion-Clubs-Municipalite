@@ -2,3 +2,29 @@
 liip_imagine:
     # valid drivers options include "gd" or "gmagick" or "imagick"
     driver: "gd"
+
+    resolvers:
+        default:
+            web_path: ~
+    
+    # La liste des filtres
+    filter_sets:
+        cache: ~
+        # Nom du Filtre (small)
+        small_sets:
+            format: webp
+            # réglez la qualité de l'image sur 60%
+            quality: 100
+
+            # liste des transformations à appliquer sur les "filtres"
+            filters:
+                thumbnail: { size: [223, 223], mode: inset }
+                # Taille de l'image de sortie
+
+
+        
+        my_thumb_jpeg:
+            format: jpeg
+            quality: 80
+            filters:
+                thumbnail: { size: [223, 223], mode: inset }
