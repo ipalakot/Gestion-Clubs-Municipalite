@@ -27,16 +27,18 @@
             </div>
         </div>
             
-<!-- Affichage du Formulaire de Commentaire -->
-<p></p><p></p>
-<div class="card border-primary">
-    <p class="bg-dark text-white">Ajouter votre commentaire  </p>
-        {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <button class="btn btn-dark">{{ button_label|default('Sauvegardez') }}</button>
-            {{ form_end(form) }}
-</div> 
-<p></p><p></p>
+        <!-- Affichage du Formulaire de Commentaire -->
+        <p></p>
+        <p></p>
+        <div class="card border-primary">
+            <p class="bg-dark text-white">Ajouter votre commentaire  </p>
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <button class="btn btn-dark">{{ button_label|default('Sauvegardez') }}</button>
+                {{ form_end(form) }}
+        </div> 
+        
+        <p></p><p></p>
             
           
 <!-- Affichage des Commentaires -->
