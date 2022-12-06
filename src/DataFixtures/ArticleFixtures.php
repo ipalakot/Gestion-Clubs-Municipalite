@@ -43,9 +43,10 @@ class ArticleFixtures extends Fixture
                         ->setAuteur($auteur)
                         ->setCreatedAt(new \DateTime())
                         ->setCategorie($categorie)
-                        ->setImage($faker->image(null, 360, 360, 'animals', true, true, 'cats', true, 'jpg'))
-                        ->setResume($faker->realText(rand(10, 100)))
-                        ->setContenu($faker->realText($maxNbChars = 5000, $indexSize = 2));
+                        ->setImageName($faker->image(null, 360, 360, 'animals', true, true, 'cats', true, 'jpg'))
+                        //->setResume($faker->realText(rand(null, 10, 100)))
+                        //->setContenu($faker->realText($maxNbChars = 5000, $indexSize = 2))
+                        ;
                        // ->setCommentaire($faker->text());
                     $manager->persist($article);
 
