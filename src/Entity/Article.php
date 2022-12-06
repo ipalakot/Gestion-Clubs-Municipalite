@@ -36,7 +36,7 @@ class Article
      * @ORM\Column(type="string", length=255)
      *  @Assert\Length(
      *      min = 5,
-     *      max = 50,
+     *      max = 150,
      *      minMessage = "Le titre doit avoir 1 minimum de {{ limit }} characteres long",
      *      maxMessage = "Votre Titre de ne pas depasser {{ limit }} characteres")
      */

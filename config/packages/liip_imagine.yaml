@@ -18,7 +18,7 @@ liip_imagine:
 
             # liste des transformations à appliquer sur les "filtres"
             filters:
-                thumbnail: { size: [223, 223], mode: inset }
+                thumbnail: { size: [223, 223], mode: outbond }
                 # Taille de l'image de sortie
 
 
