@@ -6,65 +6,76 @@
         {% include("menus/navigation.html.twig") %}
         {% include("headers/header.html.twig") %}
 
+<div class ="container">
 
+    <article>
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action active">
+                <h3>Projet UML / 
+                    Travaux Pratiques DWWM2/2022-23 </h3>
+            </a>
+        </div>
 
+        <br>
+        <br>
 
-<div class ="col-lg-12 bg-light">
-<div class ="container-sm">
+        <div class="card border-primary" >
+            <div class="card-body justify-content">
+                <img src="{{ asset('images/1.png') }}" class="col-md-6 float-md-end mb-3 ms-md-3" alt="..."> 
+                    <p class="justify-content">
+                            <h4> Mise en place d’une Application de gestion des Clubs de la Municipalité </h4>
 
-<h3>Projet UML / 
-Travaux Pratiques DWWM2/2022-23 </h3>
+                                <p>
+                                    La municipalité de votre localité vous demande de leur proposer une Application de gestion de leurs activités sportives et autres. C’est une application Web qui aidera à informatiser la gestion des activités de la municipalité. 
+                                    Cette application Web devra permettre de visiter les activités que propose la Municipalité que les Administrateurs du site mettront en ligne.
+                                    Vous devez alors permettre qu’il y ait une double interface (User / Admin)
+                                    Cette application aura entre autre des fonctionnalités suivantes :
+                                </p>
 
-<br><br>
+                                <h4>
+                                    User Interface
+                                </h4>
+                                    L’application devra permettre à toute personne connectée sur le site de la municipalité, à tout internautes de consulter la liste des activités proposées et de choisir un ou plusieurs abonnements et remplir un panier. 
+                                    Cependant, pour valider leur commande ces internautes doivent avoir un compte et s’y connecter.
+                                </p>
 
-<h2> Mise en place d’une Application de gestion des Clubs de la Municipalité </h2>
+                                <p> 
+                                    La municipalité propose une Formule Adhérents. 
+                                </p>
 
-<p>
-    La municipalité de votre localité vous demande de leur proposer une Application de gestion de leurs activités sportives et autres. C’est une application Web qui aidera à informatiser la gestion des activités de la municipalité. 
-    Cette application Web devra permettre de visiter les activités que propose la Municipalité que les Administrateurs du site mettront en ligne.
-    Vous devez alors permettre qu’il y ait une double interface (User / Admin)
-    Cette application aura entre autre des fonctionnalités suivantes :
-</p>
+                                <p>
+                                    Pour être adhérent il faut avoir créé son compte sur le site de la Commune qui vous est proposée.
+                                    De ce fait, l’application va permettre aux adhérents de s’abonner aux activités proposées par la Municipalité: 
+                                    Seuls ces adhérents à l’application peuvent valider un panier contenant un (ou plusieurs) abonnement(s)t à une ou plusieurs activités  et le régler en ligne. 
+                                    L’adhérent doit s’être connecté avec son login pour pouvoir valider son panier, payer en ligne, gérer son compte, visualiser l’historique le concernant, bref pour toutes les actions qui lui sont propres.
+                                </p>
 
-<h3>
-    User Interface
-</h3>
-    L’application devra permettre à toute personne connectée sur le site de la municipalité, à tout internautes de consulter la liste des activités proposées et de choisir un ou plusieurs abonnements et remplir un panier. 
-    Cependant, pour valider leur commande ces internautes doivent avoir un compte et s’y connecter.
-</p>
+                                <h4>
+                                    Admin Interface :
+                                </h4>
 
-<p> 
-    La municipalité propose une Formule Adhérents. 
-</p>
+                                <p>
+                                    Du côté Administrator,
+                                </p> 
+                                    <li>	vous devez permettre à l’Assistante du Club de la Municipalité de pouvoir créer et gérer via l’application le catalogue des activités (Musique, Chant, Arts graphiques, Yoga, Poterie …)  proposées sur le site internet du club. </li>
+                                    <li>	De même, du côté Admin, l’application permettra également au comptable de gérer les règlements des abonnements des adhérents aux activités (remises de chèques, échéanciers, impayés…)</li>
 
-<p>
-    Pour être adhérent il faut avoir créé son compte sur le site de la Commune qui vous est proposée.
-    De ce fait, l’application va permettre aux adhérents de s’abonner aux activités proposées par la Municipalité: 
-    Seuls ces adhérents à l’application peuvent valider un panier contenant un (ou plusieurs) abonnement(s)t à une ou plusieurs activités  et le régler en ligne. 
-    L’adhérent doit s’être connecté avec son login pour pouvoir valider son panier, payer en ligne, gérer son compte, visualiser l’historique le concernant, bref pour toutes les actions qui lui sont propres.
-</p>
+                                <h4>
+                                    Quelques règles de Gestion
+                                </h4>
 
-<h3>
-    Admin Interface :
-</h3>
+                                <li>	Chaque abonnement est annuel et a un tarif spécifique suivant l’activité choisie.</li>
+                                <li>	Le paiement en ligne doit être proposé, mais Il reste possible de payer le montant de l’abonnement par chèque(s) remis au comptable du Club (par courrier ou directement à la permanence administrative). </li>
+                                <li>	Il est possible de régler le montant d’un abonnement en plusieurs fois, avec plusieurs chèques, en indiquant la date de dépôt souhaitée pour chaque chèque.</li>
 
-<p>
-    Du côté Administrator,
-</p> 
-    <li>	vous devez permettre à l’Assistante du Club de la Municipalité de pouvoir créer et gérer via l’application le catalogue des activités (Musique, Chant, Arts graphiques, Yoga, Poterie …)  proposées sur le site internet du club. </li>
-    <li>	De même, du côté Admin, l’application permettra également au comptable de gérer les règlements des abonnements des adhérents aux activités (remises de chèques, échéanciers, impayés…)</li>
+                    </p>
+                    <br> 
+            </div>
+        </div>
+    
 
-<h3>
-    Quelques règles de Gestion
-</h3>
+    </div> 
 
-<li>	Chaque abonnement est annuel et a un tarif spécifique suivant l’activité choisie.</li>
-<li>	Le paiement en ligne doit être proposé, mais Il reste possible de payer le montant de l’abonnement par chèque(s) remis au comptable du Club (par courrier ou directement à la permanence administrative). </li>
-<li>	Il est possible de régler le montant d’un abonnement en plusieurs fois, avec plusieurs chèques, en indiquant la date de dépôt souhaitée pour chaque chèque.</li>
-
-
-</div> 
-</div>
 <br><br><br><br>
 
 {% endblock %}
