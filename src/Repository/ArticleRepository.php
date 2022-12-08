@@ -62,6 +62,68 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    
+
+    /**
+    * @return Articles[] Returns an array of Users objects
+    */
+    public function getTriTitreAsc(): array
+    {
+        $query = $this->createQueryBuilder('a')
+            ->select('a')
+            ->orderBy('a.titre', 'ASC')
+            ->getQuery();
+        return $query->getResult();
+    }
+
+
+    /**
+    * @return Articles[] Returns an array of Users objects
+    */
+    public function getTriCatAsc(): array
+    {
+        // $categorie = new Categorie();
+        $query = $this->createQueryBuilder('a')
+            ->leftJoin('a.categorie' , 'c')
+            ->addselect('c')
+            ->from('App\Entity\Categorie','cat')
+            ->where('c.id = a.categorie')
+            ->orderBy('c.titre', 'ASC')
+            ->getQuery();
+        return $query->getResult();
+    }
+
+
+    /**
+    * @return Articles[] Returns an array of Users objects
+    */
+    public function getTriDateAsc(): array
+    {
+        $query = $this->createQueryBuilder('a')
+            ->select('a')
+            ->orderBy('a.createdAt', 'ASC')
+            ->getQuery();
+        return $query->getResult();
+    }
+
+
+    
+    /**
+    * @return Articles[] Returns an array of Users objects
+    */
+    public function getTriAutAsc(): array
+    {
+        // $categorie = new Categorie();
+        $query = $this->createQueryBuilder('a')
+            ->leftJoin('a.auteur' , 'o')
+            ->addselect('o')
+            ->from('App\Entity\Auteur','aut')
+            ->where('o.id = a.auteur')
+            ->orderBy('o.noms', 'ASC')
+            ->getQuery();
+        return $query->getResult();
+    }
+
 
 
 //    /**

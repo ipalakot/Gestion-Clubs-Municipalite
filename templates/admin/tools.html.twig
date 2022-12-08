@@ -1,23 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Hello AdemineController!{% endblock %}
 
 {% block body %}
     {% include("menus/navigation_admin.html.twig") %}
     {% include("headers/header_admin.html.twig") %}
 
-
+ {% block ariane %}
+{% endblock %}
     <div class="container">
         <!-- Article main content -->
         <article class="col-md-12 maincontent">
             <div class="container">
                     <div class="jumbotron">
-                    <h1 class="display-6">Des Outils à Télécharger </h1>
-                    <hr>
-                    <p class="lead">Vous venez d'arriver sur gestion de Municipalité ? <br>
-  
-                    <hr class="my-4">
-                    <p>Nous mettons également à votre disposition la procédure, les codes et tous les documents necessaire pour la gestion de notre website</p>
+
+                        <div> 
+                        <h4>Performances</h4>
+                            <ul>
+                                <li>Utilisation de la mémoire:  {{ info.memoire }} octées <br> </li>
+                                <li>Temps d'exécution:  {{ info.temps }} ms <br></li>
+                            </ul>
+                        </div>
+                        <hr>
+
+
+                    <h4 >Des Outils à Télécharger </h4>
+                    <p>Pour une bonne utilisation de cette application, vous pouvez mettre à jours les outils suivant:</p>
 
                     <ul>
                         <li>  
@@ -50,4 +58,5 @@
             </div>
         </article>
     </div>
+
 {% endblock %}

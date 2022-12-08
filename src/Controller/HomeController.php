@@ -121,8 +121,22 @@ class HomeController extends AbstractController
      */
     public function tools()
     {
+        $user = $this->getUser();
+        $memoryUsage = memory_get_peak_usage();
+$startTime = microtime(true);
+
+
+$endTime = microtime(true);
+
+$executionTime = ($endTime - $startTime)*1000;
+
         //listing des outils pour la Gestion de l'applcation
         return $this->render('admin/tools.html.twig', [
+            'info'=>[
+                'memoire'=>$memoryUsage,
+                'temps'=>$executionTime,
+            ],
+    
 
         ] );
 

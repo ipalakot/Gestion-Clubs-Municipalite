@@ -246,4 +246,80 @@ class ArticleController extends AbstractController
 
         ]);
     }
+
+    /**
+     * @Route("/triTitreAsc", name="app_articles_tri_titre_asc")
+     */
+    public function triTitreAsc(PaginatorInterface $paginator, Request $request, ArticleRepository $articleRepository): Response
+    {
+        $donnees = $articleRepository->getTriTitreAsc();
+
+        $articles = $paginator->paginate(
+            $donnees, /* query NOT result */
+        $request->query->getInt('page', 1), /*page number*/
+        30 /*limit per page*/
+    );
+        return $this->render('article/index.html.twig', [
+        'articles' => $articles,
+        ]);
+    }
+
+    
+    /**
+     * @Route("/triCatAsc", name="app_articles_cat_asc")
+     */
+    public function triCatAsc(PaginatorInterface $paginator, Request $request, ArticleRepository $articleRepository): Response
+    {
+        $donnees = $articleRepository->getTriCatAsc();
+
+        $articles = $paginator->paginate(
+            $donnees, /* query NOT result */
+        $request->query->getInt('page', 1), /*page number*/
+        30 /*limit per page*/
+    );
+        return $this->render('article/index.html.twig', [
+        'articles' => $articles,
+        ]);
+    }
+
+    /**
+     * @Route("/tridateAsc", name="app_articles_tri_date_asc")
+     */
+    public function triDateAsc(PaginatorInterface $paginator, Request $request, ArticleRepository $articleRepository): Response
+    {
+        $donnees = $articleRepository->getTriDateAsc();
+
+        $articles = $paginator->paginate(
+            $donnees, /* query NOT result */
+        $request->query->getInt('page', 1), /*page number*/
+        30 /*limit per page*/
+    );
+        return $this->render('article/index.html.twig', [
+        'articles' => $articles,
+        ]);
+    }
+
+
+        /**
+     * @Route("/tridateAsc", name="app_articles_tri_aut_asc")
+     */
+    public function triAutAsc(PaginatorInterface $paginator, Request $request, ArticleRepository $articleRepository): Response
+    {
+        $donnees = $articleRepository->getTriAutAsc();
+
+        $articles = $paginator->paginate(
+            $donnees, /* query NOT result */
+        $request->query->getInt('page', 1), /*page number*/
+        30 /*limit per page*/
+    );
+        return $this->render('article/index.html.twig', [
+        'articles' => $articles,
+        ]);
+    }
+
+
+
+
+
+
 }
