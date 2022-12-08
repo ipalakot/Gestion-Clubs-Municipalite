@@ -16,17 +16,23 @@
         
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-            <li class="nav-item"><a class="nav-link" href="{{ path('admin_tools')}}">Tools</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ path('user_index')}}">User</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ path('adm_users')}}">Users</a></li>
+            {% if app.user %}
+                    <li class="nav-item"><a class="nav-link" href="{{ path('admin_tools')}}">Tools</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('user_index')}}">User</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('adm_users')}}">Users</a></li>
 
-            <li class="nav-item"><a class="nav-link" href=" {{ path('adm_index_auteur')}} "> Auteurs</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ path('app_article')}}"> Catalogue </a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ path('app_categorie_index')}}"> Catagorie </a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ path('app_article')}}">Articles</a></li>
+                    <li class="nav-item"><a class="nav-link" href=" {{ path('adm_index_auteur')}} "> Auteurs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('app_article')}}"> Catalogue </a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('app_categorie_index')}}"> Catagorie </a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('app_article')}}">Articles</a></li>
 
-            <li class="nav-item"><a class="nav-link" href="#"> Comptabilité </a></li>       
-            <li class="nav-item"><a class="nav-link" href="# "> login / Logout </a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"> Comptabilité </a></li>       
+                    <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }} "> Logout </a></li>
+                  {% else %}
+                    <div class="container">
+
+            
+            {% endif %}
           </ul>
         </div>
       </div>
