@@ -6,15 +6,32 @@
     {% include("menus/navigation_admin.html.twig") %}
     {% include("headers/header_admin.html.twig") %}
 
- 
+ <div >
+            
     <div class="container">
+    <div class="list-group">
+              <a href="#" class="list-group-item list-group-item-action active">
+                <h4>Performances / Tools </h4>
+              </a>
+            </div>
+
         <!-- Article main content -->
         <article class="col-md-12 maincontent">
             <div class="container">
                     <div class="jumbotron">
 
-                        <div> 
-                        <h4>Performances</h4>
+                        <div> <br>
+                            <h5> ~ Profil Utilisateur </h5>
+                                {% if app.user %}
+                                    <ul>
+                                        <li><h6> Login :  {{ app.user.userIdentifier }} </6> <br> </li>
+                                        <li>Temps d'exécution:  {{ info.temps }} ms <br></li>
+                                    </ul>
+                                {% endif %}
+                        </div>
+                        <hr>
+                        
+                        <h5> ~ Performances</h5>
                             <ul>
                                 <li>Utilisation de la mémoire:  {{ info.memoire }} octées <br> </li>
                                 <li>Temps d'exécution:  {{ info.temps }} ms <br></li>
