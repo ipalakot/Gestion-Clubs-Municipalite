@@ -21,10 +21,9 @@ liip_imagine:
                 thumbnail: { size: [200, 150], mode: outbond }
                 # Taille de l'image de sortie
 
-
-        
-        my_thumb_jpeg:
-            format: jpeg
-            quality: 80
+        medium:
+            format: webp
+            quality: 100
             filters:
-                thumbnail: { size: [223, 223], mode: inset }
+                thumbnail: { size: [400, 400], mode: outbond }
+

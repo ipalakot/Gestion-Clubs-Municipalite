@@ -48,6 +48,30 @@ class HomeController extends AbstractController
         );
     }
     
+    /**
+     * Liste des Activités proposées aux Users
+     * @Route("/activites", name="home_activites")
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @param ArticleRepository $articleRepository
+     * @return Response
+     */
+    public function activites(PaginatorInterface $paginator, Request $request, ArticleRepository $articleRepository): Response
+    {
+        $donnees = $articleRepository->findAll();
+
+        $articles = $paginator->paginate(
+            $donnees, /* query NOT result */
+        $request->query->getInt('page', 1), /*page number*/
+        30 /*limit per page*/
+    );
+    
+    return $this->render('home/activites.html.twig', [
+           'articles' => $articles,
+        ]);
+    }
+
+
     
     /**
      * @Route("/contact", name="app_contact")

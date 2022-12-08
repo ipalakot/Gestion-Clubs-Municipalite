@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article index{% endblock %}
+
+{% block body %}
+
+    {% include("menus/navigation.html.twig") %}
+    {% include("headers/header.html.twig") %}
+
+        <div class="container">
+
+            <article>
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action active">
+                <h4>Liste des Activités </h4>
+            </a>
+        </div>
+
+        <!-- Article main content -->
+          <div class="card border-primary" >
+            <div class="container">
+                <div class="row">	
+
+                    <hr>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Image</th> 
+                                <th>Titre</th>
+                                <th>Categorie</th>
+                                <th>Date</th> 
+                                <th></th>
+                            </tr>
+                        </thead>
+
+
+                        <tbody>
+                            {% for article in articles %}
+                                <tr>
+                                    <td>{{ article.id }}</td>
+                                    <td>      
+                                        <img
+                                        class="card-img-top"
+                                        src="{{ vich_uploader_asset(article, 'imageFile') | imagine_filter('medium') }}" alt="..."
+                                        />
+                                    </td>
+                           
+                                    <td>
+                                            <b>{{ article.titre }}</b> <br>
+                                            {{article.resume| raw}}
+                                    </td>
+                                    <td>{{ article.categorie.titre }}</td>
+                                   
+                        
+                                    <td> {{ article.createdAt | date('d/m/Y') }} </td>
+                                    <td> 
+                                        <div class="container bg-transparent">
+                                                {# <a href="{{ path('app_article_affichage', {'id': article.id}) }}" class="btn btn-success">Affich</a>#}
+
+                                                
+                                                    <th><a href="{{ path('app_article_affichage', {'id': article.id, 'slug': article.slug}) }}" class="btn btn-success">Lire</a></th>
+
+
+                                               
+                                               
+                                            </div>
+                                        </div>
+                                    
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="5">Aucun article pour lemoment !</td>
+                                </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                        
+                    </table>
+
+                   
+                </div>
+            
+            </div>
+            
+        </article>
+        <br><br> {{ knp_pagination_render(articles) }}
+
+
+        
+    </div>
+<br><br> {{ knp_pagination_render(articles) }}
+{% endblock%}
+                        
+                        
+                        
+                        
+          
