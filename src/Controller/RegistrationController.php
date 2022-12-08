@@ -19,7 +19,7 @@ class RegistrationController extends AbstractController
 {
     
     /**
-     * Afficher tous les Users
+     * Afficher tous les Users enreistrés
      * @Route("/user", name="user_index", methods={"GET"})
      */
     public function index(UserRepository $userRepository): Response
@@ -50,10 +50,10 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
-            $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
+                $userPasswordHasher->hashPassword(
+                $user,
+                $form->get('plainPassword')->getData()
+            )
             );
 
             $entityManager->persist($user);
@@ -71,9 +71,4 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
-
-
-
-
-
 }

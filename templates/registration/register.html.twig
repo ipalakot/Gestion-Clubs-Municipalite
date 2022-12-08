@@ -4,28 +4,45 @@
 
 {% block body %}
 
-    {% include("menus/navigation_admin.html.twig") %}
-    {% include("headers/header_admin.html.twig") %}
+    {% include("menus/navigation.html.twig") %}
+    {% include("headers/header.html.twig") %}
 
-     <div class="container">
+    <div class="container">
+        
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action active">
+                <h4>Enregistrement Utilisateur </h4>
+            </a>
+        </div>
+
+
         <!-- Article main content -->
         <article class="col-md-12 maincontent">
-            <div class="container">
-                <div class="row">	
-                    <h3> Enregistrement Utilisateur </h3>
-                    <hr>
-                    {{ form_start(registrationForm) }}
-                    {{ form_row(registrationForm.email) }}
-                    {{ form_row(registrationForm.plainPassword, {
-                        label: 'Password'
-                    }) }}
-                    {{ form_row(registrationForm.agreeTerms) }}
+            <div class="card border-primary" >
+                <div class="container">
+                    <div class="row">	
+                        <br><br><br>
 
-                        <button type="submit" class="btn">Enregistrer </button>
-                    {{ form_end(registrationForm) }}
+                        <hr>
+                        {{ form_start(registrationForm) }}
+                        {{ form_row(registrationForm.email) }}
+                        {{ form_row(registrationForm.plainPassword, {
+                            label: 'Password'
+                        }) }}
+                        {{ form_row(registrationForm.agreeTerms) }}
+                        <br><br><br>
+                            <button type="submit" class="btn btn-dark">Enregistrer </button>
+                            <br><br><br>
+                        {{ form_end(registrationForm) }}
 
+                         
+
+                    </div>
+                    
                 </div>
+                
             </div>
+            <br><br><br><br><br><br><br><br><br>
         </article>
     </div>
 {% endblock %}

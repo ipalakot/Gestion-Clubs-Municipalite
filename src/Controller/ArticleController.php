@@ -213,7 +213,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * Undocumented function
+     * Trouver les articles de la Categorie 
      * @Route("/list/categ", name="app_categaf", methods={"GET"})
      * @return void
      */
