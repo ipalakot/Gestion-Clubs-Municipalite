@@ -36,7 +36,7 @@
                     <td> 
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
-                                    <th><a href="{{path('adm_users_display', {'id': user.id} ) }}" class="btn btn-dark"> Display</a> </th>
+                                    <th><a href="{{path('user_affichage', {'id': user.id} ) }}" class="btn btn-dark"> Display</a> </th>
                                     <th><a href="{{path('adm_users_edit', {'id': user.id} ) }}" class="btn btn-dark"> Edit</a> </th>
                                     <th>{{ include('users/_delete_form.html.twig') }}   </th>
                                     {#<a href="{{path('adm_users_suppr', {'id': user.id} ) }}" class="btn btn-dark"> Suppr</a> #}

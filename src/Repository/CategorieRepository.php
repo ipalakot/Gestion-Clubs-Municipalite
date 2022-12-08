@@ -39,6 +39,32 @@ class CategorieRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+    * @return Categories[] Returns an array of Users objects
+    */
+    public function getTriTitreAsc(): array
+    {
+        $query = $this->createQueryBuilder('c')
+            ->select('c')
+            ->orderBy('c.titre', 'ASC')
+            ->getQuery();
+        return $query->getResult();
+    }
+
+    /**
+    * @return Categories[] Returns an array of Users objects
+    */
+    public function getTriResumeAsc(): array
+    {
+        $query = $this->createQueryBuilder('c')
+            ->select('c')
+            ->orderBy('c.resume', 'ASC')
+            ->getQuery();
+        return $query->getResult();
+    }
+
+
+
 //    /**
 //     * @return Categorie[] Returns an array of Categorie objects
 //     */

@@ -3,13 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Categorie;
-use App\Repository\CategorieRepository;
 use App\Form\CategorieType;
+use App\Repository\CategorieRepository;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/categorie")
@@ -24,6 +25,40 @@ use Symfony\Component\HttpFoundation\Request;
     {
         return $this->render('categorie/index.html.twig', [
             'categories' => $categorieRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/triTitreAsc", name="app_categorie_tri_titre_asc")
+     */
+    public function triTitreAsc(PaginatorInterface $paginator, Request $request, CategorieRepository $categorieRepository): Response
+    {
+        $donnees = $categorieRepository->getTriTitreAsc();
+
+        $categories = $paginator->paginate(  
+            $donnees, /* query NOT result */
+        $request->query->getInt('page', 1), /*page number*/
+        30 /*limit per page*/
+    );
+        return $this->render('categorie/index.html.twig', [
+        'categories' => $categories,
+        ]);
+    }
+
+    /**
+     * @Route("/triResumeAsc", name="app_categorie_tri_resume_asc")
+     */
+    public function triResumeAsc(PaginatorInterface $paginator, Request $request, CategorieRepository $categorieRepository): Response
+    {
+        $donnees = $categorieRepository->getTriResumeAsc();
+
+        $categories = $paginator->paginate(  
+            $donnees, /* query NOT result */
+        $request->query->getInt('page', 1), /*page number*/
+        30 /*limit per page*/
+    );
+        return $this->render('categorie/index.html.twig', [
+        'categories' => $categories,
         ]);
     }
 
@@ -59,7 +94,7 @@ use Symfony\Component\HttpFoundation\Request;
         ]);
     }
 
-     /**
+    /**
      * @Route("/{id}", name="app_categorie_show", methods={"GET"})
      */
     public function show(Categorie $categorie): Response
@@ -89,6 +124,7 @@ use Symfony\Component\HttpFoundation\Request;
         ]);
     }
 
+
     /**
      * @Route("/{id}", name="adm_categorie_delete", methods={"POST"})
      */
@@ -100,4 +136,8 @@ use Symfony\Component\HttpFoundation\Request;
 
         return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+
 }

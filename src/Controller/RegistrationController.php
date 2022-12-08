@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\UserAuthenticator;
@@ -69,6 +70,22 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * Affichage des User 
+     * @Route("/{id}", name="user_affichage", methods={"GET"} )
+     * @param User $user
+     * @return void
+     */
+    public function displayUsers(User $users)
+    {
+        //$repo = $this->getDoctrine()->getRepository(Users::class);
+        //$users= $repo->find($id);
+        
+        return $this->render('registration/affichage.html.twig', [
+            'users'=>$users
         ]);
     }
 }
