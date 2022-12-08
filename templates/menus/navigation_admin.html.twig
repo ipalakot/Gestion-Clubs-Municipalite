@@ -1,6 +1,7 @@
 <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container px-4 px-lg-5">
+      {% if app.user %}
         <a class="navbar-brand" href="{{ path('app_admin')}}">Accueil Admin</a>
         
         <button
@@ -16,7 +17,7 @@
         
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-            {% if app.user %}
+            
                     <li class="nav-item"><a class="nav-link" href="{{ path('admin_tools')}}">Tools</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ path('user_index')}}">User</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ path('adm_users')}}">Users</a></li>
