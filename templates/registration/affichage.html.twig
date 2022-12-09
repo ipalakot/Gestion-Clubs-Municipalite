@@ -8,16 +8,33 @@
         <article class="col-md-12 maincontent">
             <div class="container">
                 <div class="row">
-                   <h1>{{ users.email }} user' Profil </h1> | 
+                   <h1>{{ user.login }} user' Profil </h1> | 
                    <hr>
 
                         <article>                        
                             <div class="container">
-
-                                    <div class="col-sm-2 display-6">Emails:</div>
-                                    <div class="col-sm-10 display-6">{{ users.email }}</div>
+                                <div class="row">
+                                    <div class="col-sm-2 display-6">Photos:</div>
+                                    <div class="col-sm-10 display-6"><img class="card-img-top"src="{{ vich_uploader_asset(user, 'imageFile') }}" alt="..."></div>
+                                
+                                </div>  
+                                <div class="row">
+                                    <div class="col-sm-2 display-6">Nom:</div>
+                                    <div class="col-sm-10 display-6">{{ user.noms }}</div>
                                 </div>
-
+                                  <div class="row">
+                                    <div class="col-sm-2 display-6">Prenom:</div>
+                                    <div class="col-sm-10 display-6">{{ user.prenoms }}</div>
+                                </div>  
+                                <div class="row">
+                                    <div class="col-sm-2 display-6">Login:</div>
+                                    <div class="col-sm-10 display-6">{{ user.login }}</div>
+                                </div>  
+                                <div class="row">
+                                    <div class="col-sm-2 display-6">Emails:</div>
+                                    <div class="col-sm-10 display-6">{{ user.email }}</div>
+                                </div>
+                       
                             </div>
                         </article>
                         

@@ -2,6 +2,7 @@ vich_uploader:
     db_driver: orm
 
     mappings:
+
       articles_images:
         # dossier dans kequel on va envoyer notre image
         uri_prefix: '/images/articles' 
@@ -9,7 +10,17 @@ vich_uploader:
         upload_destination: '%kernel.project_dir%/public/images/articles'
         namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
 
-      
+      user_images: 
+        # dossier dans lequel on va envoyer notre image
+        uri_prefix: '/images/user'
+        # chemin de destination 
+        upload_destination: '%kernel.project_dir%/public/images/user'
+        namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+        
+
         inject_on_load: false
         delete_on_update: true
         delete_on_remove: true
+
+      

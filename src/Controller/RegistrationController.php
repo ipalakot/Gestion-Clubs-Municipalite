@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 
 use App\Form\RegistrationFormType;
+use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Security\UserAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -74,18 +75,55 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * Affichage des User 
-     * @Route("/{id}", name="user_affichage", methods={"GET"} )
-     * @param User $user
-     * @return void
-     */
-    public function displayUsers(User $users)
+    * @Route("/reg/{id}", name="adm_user_affichage", methods={"GET"})
+    */
+    public function affichage(User $user): Response
     {
-        //$repo = $this->getDoctrine()->getRepository(Users::class);
-        //$users= $repo->find($id);
-        
-        return $this->render('registration/affichage.html.twig', [
-            'users'=>$users
+       return $this->render('registration/affichage.html.twig', [
+           'user' => $user,
+       ]);
+    }
+
+    /**
+     * @Route("{id}/edit", name="adm_user_edit", methods={"GET", "POST"})
+     */
+    public function edit(EntityManagerInterface $em, Request $request, User $user, UserRepository $userRepository): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            //$usersRepository->add($user, true);
+            $em->persist($user);
+            $em->flush();
+           
+
+            return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('registration/edit.html.twig', [
+            'user' => $user,
+            'form' => $form,
         ]);
+
+    }
+
+    /**
+     * @Route("/{id}", name="adm_user_suppr", methods={"POST"})
+     */
+    public function suppr(Request $request, User $user, UserRepository $userRepository): Response
+    
+    {
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            
+             $userRepository->remove($user, true);
+            
+            //$manager= $this->getDoctrine()-getManager();
+                
+            //    $this->$manager->remove(user);
+            //    $manager->flush();
+        }
+        return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
     }
 }
