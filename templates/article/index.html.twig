@@ -20,10 +20,10 @@
                             <tr>
                                 <th>Id</th>
                                 {# <th>Image</th> #} 
-                                <th><a href="{{ path('app_articles_tri_titre_asc') }}" >Titre</a></th>
+                                <th><a href="{{ path('app_article_tri_asc', {'champ': 'titre'}) }}" >Titre</a></th>
                                 <th><a href="{{ path('app_articles_cat_asc') }}" >Catégorie</a></th>
                                 <th><a href="{{ path('app_articles_tri_aut_asc') }}" >Auteur</a></th> 
-                                <th><a href="{{ path('app_articles_tri_date_asc') }}" >Date</a></th> 
+                                <th><a href="{{ path('app_article_tri_asc', {'champ': 'createdAt'}) }}"  >Date</a></th> 
                                 <th></th>
                             </tr>
                         </thead>

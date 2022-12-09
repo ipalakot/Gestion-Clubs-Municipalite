@@ -15,11 +15,11 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>noms</th>
-                <th>Prenoms</th>
-                <th>Adresse</th>
-                <th>Mails</th> 
-                <th>Tel.</th>
+                <th><a href="{{path('app_users_tri_asc', {'champ': 'noms'} ) }}" >Noms</a></th>
+                <th><a href="{{path('app_users_tri_asc', {'champ': 'prenoms'} ) }}" >Prenoms</a></th>
+                <th><a href="{{path('app_users_tri_asc', {'champ': 'adresse'} ) }}" >Adresse</a></th>
+                <th><a href="{{path('app_users_tri_asc', {'champ': 'mail'} ) }}" >Mails</a></th> 
+                <th><a href="{{path('app_users_tri_asc', {'champ': 'phone'} ) }}">Tel</a></th>
                 <th>Action</th>
             </tr>
         </thead>

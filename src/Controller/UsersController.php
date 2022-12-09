@@ -6,6 +6,7 @@ use App\Entity\Users;
 use App\Repository\UsersRepository;
 use App\Form\UsersType;
 use App\Repository\UserRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -31,6 +32,24 @@ class UsersController extends AbstractController
     {
         return $this->render('users/index.html.twig', [
             'users' => $usersRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/triAsc/{champ}", name="app_users_tri_asc")
+     */
+    public function triAsc(PaginatorInterface $paginator, Request $request, UsersRepository $usersRepository): Response
+    {
+        $champ = $request->attributes->get('champ');
+        $donnees = $usersRepository->getTriAsc($champ);
+
+        $users = $paginator->paginate(
+            $donnees, /* query NOT result */
+        $request->query->getInt('page', 1), /*page number*/
+        30 /*limit per page*/
+    );
+        return $this->render('users/index.html.twig', [
+        'users' => $users,
         ]);
     }
 

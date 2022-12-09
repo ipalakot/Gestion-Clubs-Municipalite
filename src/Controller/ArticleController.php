@@ -248,11 +248,12 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/triTitreAsc", name="app_articles_tri_titre_asc")
+     * @Route("/triAsc/{champ}", name="app_article_tri_asc")
      */
-    public function triTitreAsc(PaginatorInterface $paginator, Request $request, ArticleRepository $articleRepository): Response
+    public function triAsc(PaginatorInterface $paginator, Request $request, ArticleRepository $articleRepository): Response
     {
-        $donnees = $articleRepository->getTriTitreAsc();
+        $champ = $request->attributes->get('champ');
+        $donnees = $articleRepository->getTriAsc($champ);
 
         $articles = $paginator->paginate(
             $donnees, /* query NOT result */
@@ -263,6 +264,23 @@ class ArticleController extends AbstractController
         'articles' => $articles,
         ]);
     }
+
+    // /**
+    //  * @Route("/triTitreAsc", name="app_articles_tri_titre_asc")
+    //  */
+    // public function triTitreAsc(PaginatorInterface $paginator, Request $request, ArticleRepository $articleRepository): Response
+    // {
+    //     $donnees = $articleRepository->getTriTitreAsc();
+
+    //     $articles = $paginator->paginate(
+    //         $donnees, /* query NOT result */
+    //     $request->query->getInt('page', 1), /*page number*/
+    //     30 /*limit per page*/
+    // );
+    //     return $this->render('article/index.html.twig', [
+    //     'articles' => $articles,
+    //     ]);
+    // }
 
     
     /**
@@ -282,25 +300,25 @@ class ArticleController extends AbstractController
         ]);
     }
 
+    // /**
+    //  * @Route("/tridateAsc", name="app_articles_tri_date_asc")
+    //  */
+    // public function triDateAsc(PaginatorInterface $paginator, Request $request, ArticleRepository $articleRepository): Response
+    // {
+    //     $donnees = $articleRepository->getTriDateAsc();
+
+    //     $articles = $paginator->paginate(
+    //         $donnees, /* query NOT result */
+    //     $request->query->getInt('page', 1), /*page number*/
+    //     30 /*limit per page*/
+    // );
+    //     return $this->render('article/index.html.twig', [
+    //     'articles' => $articles,
+    //     ]);
+    // }
+
+
     /**
-     * @Route("/tridateAsc", name="app_articles_tri_date_asc")
-     */
-    public function triDateAsc(PaginatorInterface $paginator, Request $request, ArticleRepository $articleRepository): Response
-    {
-        $donnees = $articleRepository->getTriDateAsc();
-
-        $articles = $paginator->paginate(
-            $donnees, /* query NOT result */
-        $request->query->getInt('page', 1), /*page number*/
-        30 /*limit per page*/
-    );
-        return $this->render('article/index.html.twig', [
-        'articles' => $articles,
-        ]);
-    }
-
-
-        /**
      * @Route("/tridateAsc", name="app_articles_tri_aut_asc")
      */
     public function triAutAsc(PaginatorInterface $paginator, Request $request, ArticleRepository $articleRepository): Response

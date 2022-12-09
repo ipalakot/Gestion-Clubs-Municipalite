@@ -62,19 +62,32 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    
-
     /**
     * @return Articles[] Returns an array of Users objects
     */
-    public function getTriTitreAsc(): array
+    public function getTriAsc(string $champ): array
     {
         $query = $this->createQueryBuilder('a')
             ->select('a')
-            ->orderBy('a.titre', 'ASC')
+            ->orderBy('a.' . $champ, 'ASC')
             ->getQuery();
         return $query->getResult();
     }
+
+
+    
+
+    // /**
+    // * @return Articles[] Returns an array of Users objects
+    // */
+    // public function getTriTitreAsc(): array
+    // {
+    //     $query = $this->createQueryBuilder('a')
+    //         ->select('a')
+    //         ->orderBy('a.titre', 'ASC')
+    //         ->getQuery();
+    //     return $query->getResult();
+    // }
 
 
     /**
@@ -94,17 +107,17 @@ class ArticleRepository extends ServiceEntityRepository
     }
 
 
-    /**
-    * @return Articles[] Returns an array of Users objects
-    */
-    public function getTriDateAsc(): array
-    {
-        $query = $this->createQueryBuilder('a')
-            ->select('a')
-            ->orderBy('a.createdAt', 'ASC')
-            ->getQuery();
-        return $query->getResult();
-    }
+    // /**
+    // * @return Articles[] Returns an array of Users objects
+    // */
+    // public function getTriDateAsc(): array
+    // {
+    //     $query = $this->createQueryBuilder('a')
+    //         ->select('a')
+    //         ->orderBy('a.createdAt', 'ASC')
+    //         ->getQuery();
+    //     return $query->getResult();
+    // }
 
 
     

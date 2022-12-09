@@ -61,6 +61,18 @@ class UsersRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    /**
+    * @return Users[] Returns an array of Users objects
+    */
+    public function getTriAsc(string $champ): array
+    {
+        $query = $this->createQueryBuilder('u')
+            ->select('u')
+            ->orderBy('u.' . $champ, 'ASC')
+            ->getQuery();
+        return $query->getResult();
+    }
+
 
 
 //    /**
