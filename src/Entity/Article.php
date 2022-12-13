@@ -8,13 +8,14 @@ use App\Repository\ArticleRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\File;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
-use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
 
@@ -29,8 +30,9 @@ class Article
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("article:api") 
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -39,28 +41,33 @@ class Article
      *      max = 150,
      *      minMessage = "Le titre doit avoir 1 minimum de {{ limit }} characteres long",
      *      maxMessage = "Votre Titre de ne pas depasser {{ limit }} characteres")
+     * @Groups("article:api") 
      */
-    private $titre;
+    public $titre;
 
     /**
      * @Gedmo\Slug(fields={"titre"})
      * @ORM\Column(length=128, unique=true)
+     * @Groups("article:api") 
      */
     private $slug;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups("article:api") 
      */
     private $resume;
 
     /**
      * @ORM\Column(type="text")
+     *  @Groups("article:api") 
      */
     private $contenu;
 
 
     /**
      * @ORM\Column(type="date")
+     * @Groups("article:api") 
      */
     private $createdAt;
 
