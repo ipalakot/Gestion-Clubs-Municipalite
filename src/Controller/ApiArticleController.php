@@ -2,15 +2,21 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
+
 use FOS\UserBundle\Model\Group;
 
+
 use App\Repository\ArticleRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\Transport\Serialization\Serializer;
-use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
+
+//use Symfony\Component\Messenger\Transport\Serialization\Serializer;
 use Symfony\Component\Routing\Annotation\Route;
+
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/api", name="api_")
@@ -21,11 +27,12 @@ class ApiArticleController extends AbstractController
     /**
      * @Route("/", name="article", methods={"GET"}) // J'affiche ici la liste des methodes
      */
-    public function liste(ArticleRepository $articleRepo, SerializerInterface $serializer): Response
+    public function liste(ArticleRepository $articleRepo, NormalizerInterface $normalizer, SerializerInterface $serializer): Response
     {
         #_1 Recupération des Articles
         // On récupère la liste des articles et on les affiche comme nous savons dejà faire
-        // $article = $articleRepo -> findAll();
+        //$articles = $articleRepo -> findAll();
+
         //dd($article);
 
        
@@ -51,7 +58,7 @@ class ApiArticleController extends AbstractController
         
 
         #_4 Tagger les arttibuts dont a besoin
-        $articles = $articleRepo -> findAll();
+        //$articles = $articleRepo -> findAll();
         /* $articlNormalises = $normalizer->normalize($articles, null, [
                      'groups'=>'article:api'
                  ]);*/
@@ -77,14 +84,28 @@ class ApiArticleController extends AbstractController
         //Regrouper les #3 & #5
         // Le Serializer embarque avec lui Le Normalizer et l'Encodage
 
-        $articleSerialises  =$serializer->serialize($articles, 'json', [
-                                    'groups'=> 'article:api']);
-            
-        $response = new Response($articleSerialises, 200, [], true);
-                
-        return $response;
+       
+        /* $articleSerialises  =$serializer->serialize($articles, 'json', [
+                                     'groups'=> 'article:api']);
 
+         $response = new Response($articleSerialises, 200, [], true);
 
+         return $response; */
+
+        
+        #_7_ reduire tout le code en 1 seul
+        return $this-> json(
+            $articleRepo->findAll(),
+            200,
+            [],
+            [
+                        "groups"=> "article:api",
+                    ],
+        );
+
+        
+
+        #_8_ ajouter dans l'articles les données des Auteurs/Categories/Commentaire
 
         /* $response = new Response();
          $response -> headers->set('Content-Type', 'application/json');
