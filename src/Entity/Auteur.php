@@ -6,6 +6,7 @@ use App\Repository\AuteurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AuteurRepository::class)
@@ -16,16 +17,19 @@ class Auteur
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("auteur:api")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("auteur:api")
      */
     private $noms;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("auteur:api")
      */
     private $prenoms;
 
@@ -36,16 +40,19 @@ class Auteur
 
     /**
      * @ORM\Column(type="text")
+     * @Groups("auteur:api")
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("auteur:api")
      */
     private $mail;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("auteur:api")
      */
     private $phone;
 
@@ -113,8 +120,8 @@ class Auteur
         return $this;
     }
 
-    public function to_String(){
-
+    public function to_String()
+    {
         return $this->getNoms();
     }
 

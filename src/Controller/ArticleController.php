@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-
 /**
  * @Route("/article")
  */
@@ -30,9 +29,9 @@ class ArticleController extends AbstractController
             $donnees, /* query NOT result */
         $request->query->getInt('page', 1), /*page number*/
         30 /*limit per page*/
-    );
+        );
     
-    return $this->render('article/index.html.twig', [
+        return $this->render('article/index.html.twig', [
            'articles' => $articles,
         ]);
     }
@@ -59,57 +58,59 @@ class ArticleController extends AbstractController
         ]);
     }
 
-   /**
-    * Affichage d'un article avec Slug & ID 
-    * @Route("/titre/{slug}", name="app_article_affichage_slug", requirements={"slug":"[a-z0-9\-]*"})
-    * @param Article $article
-    * @param Request $request
-    * @return void
-    */
-   public function affichageSlug(Article $article, Request $request){
-
-    return $this->render('article/affichage_slug.html.twig',
-    ['article' => $article]);
-
-   }
+    /**
+     * Affichage d'un article avec Slug & ID
+     * @Route("/titre/{slug}", name="app_article_affichage_slug", requirements={"slug":"[a-z0-9\-]*"})
+     * @param Article $article
+     * @param Request $request
+     * @return void
+     */
+    public function affichageSlug(Article $article, Request $request)
+    {
+        return $this->render(
+            'article/affichage_slug.html.twig',
+            ['article' => $article]
+        );
+    }
 
 
     /**
-     * Affichage d'un article avec Slug & ID 
+     * Affichage d'un article avec Slug & ID
      * @Route("/{slug}-{id}", name="app_article_affichage", methods={"GET"}, requirements={"slug":"[a-z0-9\-]*"})
      * @param Article $article
      * @param Request $request
      */
     public function affichage(EntityManagerInterface $entityManager, Article $articles, string $slug, Request $request, $id)
-    {    
-        if($articles->getSlug() !==$slug){
-            return $this->redirectToRoute('app_article_affichage',
-            ['id'=>$articles->getId(),
+    {
+        if ($articles->getSlug() !==$slug) {
+            return $this->redirectToRoute(
+                'app_article_affichage',
+                ['id'=>$articles->getId(),
             'slug'=>$articles->getslug()],
-            301);
+                301
+            );
         }
         $commentaire = new Commentaire();
         //$commentairesForm = $this->createForm(CommentairesType::class, $commentaires);
 
         $form = $this->createFormBuilder($commentaire)
                 ->add('auteur')
-                ->add('contenu') 
+                ->add('contenu')
                 ->getForm();
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $commentaire->setCreatedAt(new \DateTime())
                      ->setArticle($articles);
             $entityManager->persist($commentaire);
             $entityManager->flush();
-            return $this->redirectToRoute('app_article_affichage',  ['id' => $articles->getId()
+            return $this->redirectToRoute('app_article_affichage', ['id' => $articles->getId()
             ]);
-    }
+        }
         return $this->render('article/affichage.html.twig', [
         'articles'=>$articles,
         'form'=> $form->createView()
         //'commentaires '=> $commentaires ,
         ]);
-
     }
 
 
@@ -157,7 +158,7 @@ class ArticleController extends AbstractController
     {
         //$articles = $articleRepository->findAll();
 
-    return $this->render('article/index_all.html.twig', [
+        return $this->render('article/index_all.html.twig', [
            'articles' => $articleRepository->findAll(),
         ]);
     }
@@ -175,7 +176,7 @@ class ArticleController extends AbstractController
             ['id' => 'ASC']
         );
 
-    return $this->render('article/index_all.html.twig', [
+        return $this->render('article/index_all.html.twig', [
            'articles' => $articles,
         ]);
     }
@@ -213,12 +214,12 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * Trouver les articles de la Categorie 
+     * Trouver les articles de la Categorie
      * @Route("/list/categ", name="app_categaf", methods={"GET"})
      * @return void
      */
     public function findCat(ArticleRepository $articles)
-    {   
+    {
         $articles = $articles->findCategorie();
         return $this->render('article/index_cat.html.twig', [
             'articles' => $articles,
@@ -259,7 +260,7 @@ class ArticleController extends AbstractController
             $donnees, /* query NOT result */
         $request->query->getInt('page', 1), /*page number*/
         30 /*limit per page*/
-    );
+        );
         return $this->render('article/index.html.twig', [
         'articles' => $articles,
         ]);
@@ -294,7 +295,7 @@ class ArticleController extends AbstractController
             $donnees, /* query NOT result */
         $request->query->getInt('page', 1), /*page number*/
         30 /*limit per page*/
-    );
+        );
         return $this->render('article/index.html.twig', [
         'articles' => $articles,
         ]);
@@ -329,15 +330,9 @@ class ArticleController extends AbstractController
             $donnees, /* query NOT result */
         $request->query->getInt('page', 1), /*page number*/
         30 /*limit per page*/
-    );
+        );
         return $this->render('article/index.html.twig', [
         'articles' => $articles,
         ]);
     }
-
-
-
-
-
-
 }

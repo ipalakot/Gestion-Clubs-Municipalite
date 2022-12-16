@@ -14,7 +14,9 @@ use Symfony\Component\HttpFoundation\Response;
 //use Symfony\Component\Messenger\Transport\Serialization\Serializer;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -25,7 +27,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ApiArticleController extends AbstractController
 {
     /**
-     * @Route("/", name="article", methods={"GET"}) // J'affiche ici la liste des methodes
+     * @Route("/", name="article_list", methods={"GET"}) // J'affiche ici la liste des methodes
      */
     public function liste(ArticleRepository $articleRepo, NormalizerInterface $normalizer, SerializerInterface $serializer): Response
     {
@@ -94,13 +96,16 @@ class ApiArticleController extends AbstractController
 
         
         #_7_ reduire tout le code en 1 seul
-        return $this-> json(
+        return $this-> Json(
             $articleRepo->findAll(),
             200,
             [],
             [
-                        "groups"=> "article:api",
-                    ],
+                "groups"=> "article:api",
+                /*'circular_reference_handler' => function ($object) {
+                    return $object->getId();
+                }*/
+            ]
         );
 
         
@@ -115,5 +120,23 @@ class ApiArticleController extends AbstractController
          ); */
         
         #_3  utiliser le TAG pour choisir les attributs que l'on veut afficher
+    }
+
+
+    /**
+     * Affichage dun article
+     * @Route("/lire/{id}", name="article_display", methods={"GET"})
+     */
+    public function getArticle(Article $article)
+    {
+        return $this-> Json(
+            $article,
+            200,
+            [],
+            [
+                "groups"=> "article:api"
+
+            ],
+        );
     }
 }
