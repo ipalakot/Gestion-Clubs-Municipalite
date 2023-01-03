@@ -8,12 +8,14 @@ use FOS\UserBundle\Model\Group;
 
 
 use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\HttpFoundation\Response;
 
 //use Symfony\Component\Messenger\Transport\Serialization\Serializer;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -27,7 +29,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ApiArticleController extends AbstractController
 {
     /**
-     * @Route("/", name="article_list", methods={"GET"}) // J'affiche ici la liste des methodes
+     * @Route("/list", name="article_list", methods={"GET"}) // J'affiche ici la liste des methodes
      */
     public function liste(ArticleRepository $articleRepo, NormalizerInterface $normalizer, SerializerInterface $serializer): Response
     {
@@ -122,7 +124,6 @@ class ApiArticleController extends AbstractController
         #_3  utiliser le TAG pour choisir les attributs que l'on veut afficher
     }
 
-
     /**
      * Affichage dun article
      * @Route("/lire/{id}", name="article_display", methods={"GET"})
@@ -138,5 +139,38 @@ class ApiArticleController extends AbstractController
 
             ],
         );
+    }
+
+    /**
+     *
+     * @Route("/add", name="artcle_ajout", methods={"POST"})
+     */
+    public function new(Request $request, SerializerInterface $serialializer, EntityManagerInterface $manager)
+    {
+        
+     #_1 Lecture de Contenu
+        //Lecture du contenu de la requete HTTP
+        // c'set bien sur du Json
+        $articleSent = $request->getContent();
+        //dd($articleSent);
+
+        #_2 deserialisation
+        // Prendre el Json et le tranformer en Entity
+        // deserialiser sur la forme de la class Article
+        // En partant du format Json
+        $articles  = $serialializer->deserialize($articleSent, Article::class, 'json');
+        // dd($articles);
+        
+        #_3 Appel de Mon Entity Managr
+        //Je persite alors le contenu dans la BD
+        // Sans oublier de setter la date
+        $articles->setCreatedAt(new\DateTime());
+        $manager->persist($articles);
+        $manager->flush();
+        dd($articles);
+
+    
+        #_3 Envoi de reponse
+       // return $this-> json($articles, 200, [], ['groups'=> 'article:api']);
     }
 }

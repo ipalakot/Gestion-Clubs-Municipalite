@@ -12,17 +12,17 @@ use Symfony\Component\HttpFoundation\File\File;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
-
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  * @UniqueEntity("titre")
  * @Vich\Uploadable
+ * @ApiResource()
  */
 class Article
 {
@@ -30,7 +30,7 @@ class Article
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("article:api") 
+     * @Groups({"article:api"})
      */
     public $id;
 
@@ -41,33 +41,33 @@ class Article
      *      max = 150,
      *      minMessage = "Le titre doit avoir 1 minimum de {{ limit }} characteres long",
      *      maxMessage = "Votre Titre de ne pas depasser {{ limit }} characteres")
-     * @Groups("article:api") 
+     * @Groups({"article:api"})
      */
     public $titre;
 
     /**
      * @Gedmo\Slug(fields={"titre"})
      * @ORM\Column(length=128, unique=true)
-     * @Groups("article:api") 
+     * @Groups({"article:api"})
      */
     private $slug;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups("article:api") 
+     * @Groups({"article:api"})
      */
     private $resume;
 
     /**
      * @ORM\Column(type="text")
-     *  @Groups("article:api") 
+     *  @Groups({"article:api"})
      */
     private $contenu;
 
 
     /**
      * @ORM\Column(type="date")
-     * @Groups("article:api") 
+     *@Groups({"article:api"})
      */
     private $createdAt;
 
@@ -85,15 +85,16 @@ class Article
 
     /**
      * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="article")
+     * @Groups({"article:api"})
      */
     private $commentaires;
 
     
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     * 
+     *
      * @Vich\UploadableField(mapping="articles_images", fileNameProperty="imageName")
-     * 
+     *
      * @var File|null
      */
     private $imageFile;
@@ -108,7 +109,7 @@ class Article
 
     /**
      * @var \DateTime $updated_at
-     * 
+     *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
      */
@@ -244,15 +245,15 @@ class Article
 
    
     
-/**
-     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
-     *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
-     */
+    /**
+         * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+         * of 'UploadedFile' is injected into this setter to trigger the update. If this
+         * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+         * must be able to accept an instance of 'File' as the bundle will inject one here
+         * during Doctrine hydration.
+         *
+         * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+         */
     public function setImageFile(?File $imageFile = null): void
     {
         $this->imageFile = $imageFile;
@@ -291,5 +292,4 @@ class Article
 
         return $this;
     }
-
 }
