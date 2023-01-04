@@ -141,36 +141,4 @@ class ApiArticleController extends AbstractController
         );
     }
 
-    /**
-     *
-     * @Route("/add", name="artcle_ajout", methods={"POST"})
-     */
-    public function new(Request $request, SerializerInterface $serialializer, EntityManagerInterface $manager)
-    {
-        
-     #_1 Lecture de Contenu
-        //Lecture du contenu de la requete HTTP
-        // c'set bien sur du Json
-        $articleSent = $request->getContent();
-        //dd($articleSent);
-
-        #_2 deserialisation
-        // Prendre el Json et le tranformer en Entity
-        // deserialiser sur la forme de la class Article
-        // En partant du format Json
-        $articles  = $serialializer->deserialize($articleSent, Article::class, 'json');
-        // dd($articles);
-        
-        #_3 Appel de Mon Entity Managr
-        //Je persite alors le contenu dans la BD
-        // Sans oublier de setter la date
-        $articles->setCreatedAt(new\DateTime());
-        $manager->persist($articles);
-        $manager->flush();
-        dd($articles);
-
-    
-        #_3 Envoi de reponse
-       // return $this-> json($articles, 200, [], ['groups'=> 'article:api']);
-    }
 }
