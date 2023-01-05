@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use new\DateTime;
 use App\Entity\Article;
 
 use FOS\UserBundle\Model\Group;
