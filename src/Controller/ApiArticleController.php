@@ -1,26 +1,16 @@
 <?php
-
 namespace App\Controller;
 
 use App\Entity\Article;
-
-use FOS\UserBundle\Model\Group;
-
-
 use App\Repository\ArticleRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Serializer\Serializer;
-
-//use Symfony\Component\Messenger\Transport\Serialization\Serializer;
-use Symfony\Component\HttpFoundation\Request;
-
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
+//use Symfony\Component\HttpFoundation\JsonResponse;
+//use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+//use Symfony\Component\DependencyInjection\Loader\Configurator\serializer;
 
 /**
  * @Route("/api", name="api_")
