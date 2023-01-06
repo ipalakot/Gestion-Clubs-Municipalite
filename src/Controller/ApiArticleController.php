@@ -19,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ApiArticleController extends AbstractController
 {
     /**
-     * @Route("/list", name="article_list", methods={"GET"}) // J'affiche ici la liste des methodes
+     * @Route("/articles", name="article_list", methods={"GET"}) // J'affiche ici la liste des methodes
      */
     public function liste(ArticleRepository $articleRepo, NormalizerInterface $normalizer, SerializerInterface $serializer): Response
     {
@@ -116,7 +116,7 @@ class ApiArticleController extends AbstractController
 
     /**
      * Affichage dun article
-     * @Route("/lire/{id}", name="article_display", methods={"GET"})
+     * @Route("/article/{id}", name="article_display", methods={"GET"})
      */
     public function getArticle(Article $article)
     {
