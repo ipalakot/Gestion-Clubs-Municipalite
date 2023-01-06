@@ -24,7 +24,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @Vich\Uploadable
  * @ApiResource(
  *     attributes={
- *         "order"={"createdAt":"ASC"}
+ *         "order"={"createdAt":"DESC"}
  *     },
  *     normalizationContext={"groups"={"article:api"}},
  *     collectionOperations={"get", "post"},
