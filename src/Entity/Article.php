@@ -22,7 +22,15 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  * @UniqueEntity("titre")
  * @Vich\Uploadable
- * @ApiResource()
+ * @ApiResource(
+ *     attributes={
+ *          "order"={"createdAt": "DESC"}
+ *      },
+ *      paginationItemsPerPage: 2
+ *     normalizationContext={"groups"={"article:api"}},
+ *     collectionOperations={"get"={"method"="GET"}},
+ *     itemOperations={"get"={"method"="GET"}}
+ * )
  */
 class Article
 {
