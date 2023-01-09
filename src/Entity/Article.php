@@ -26,7 +26,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     attributes={
  *          "order"={"createdAt": "DESC"}
  *      },
- *      paginationItemsPerPage: 2
+ *     
  *     normalizationContext={"groups"={"article:api"}},
  *     collectionOperations={"get"={"method"="GET"}},
  *     itemOperations={"get"={"method"="GET"}}
