@@ -1,0 +1,14 @@
+### Api Plateform Tools
+GET http://127.0.0.1:8000/
+
+### Affichage de la liste des articles
+GET http://127.0.0.1:8000/api/article
+
+### Affichage d'un article
+### Remplacer "1" par l'ID de l'article
+GET http://127.0.0.1:8000/api/article/1
+
+### Ajout d'un nouvel article
+POST http://127.0.0.1:8000/api/add
+
+

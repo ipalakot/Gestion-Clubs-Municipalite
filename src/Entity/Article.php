@@ -2,20 +2,28 @@
 
 namespace App\Entity;
 
+use App\Entity\Auteur;
+use App\Entity\Categorie;
 use Cocur\Slugify\Slugify;
+use App\Entity\Commentaire;
+
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ArticleRepository;
+
 use Gedmo\Mapping\Annotation as Gedmo;
-
+use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\HttpFoundation\File\File;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+//use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+//use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Core\Annotation\ApiResource;
-
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -24,11 +32,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @Vich\Uploadable
  * @ApiResource(
  *     attributes={
- *          "order"={"createdAt": "DESC"}
- *      },
- *     
- *     normalizationContext={"groups"={"article:api"}},
- *     collectionOperations={"get"={"method"="GET"}},
+ *        "order"={"createdAt": "ASC"},
+ *     },
+ *     paginationItemsPerPage=2,
+ *      normalizationContext={"groups"={"article:api"}},
+ *     collectionOperations={"get", "post"},
  *     itemOperations={"get"={"method"="GET"}}
  * )
  */
