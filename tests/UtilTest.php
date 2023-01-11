@@ -12,7 +12,7 @@ class UtilTest extends TestCase
 
             // $this->assertTrue(true);
                 //$this->assertTrue(true);
-                $this->assertEquals(5, 2*2); 
+                $this->assertEquals(4, 2*2); 
                 $this->assertEquals(12, 7+5);
     }
 }

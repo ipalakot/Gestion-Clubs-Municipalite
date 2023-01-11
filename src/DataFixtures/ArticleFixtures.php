@@ -11,7 +11,10 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use PhpParser\Node\Expr\New_;
 
-class ArticleFixtures extends Fixture
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+
+
+class ArticleFixtures extends Fixture implements FixtureGroupInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -70,4 +73,10 @@ class ArticleFixtures extends Fixture
         }
         $manager->flush();
     }
+
+    public static function getGroups(): array
+     {
+         return ['group3'];
+     }
+     
 }
