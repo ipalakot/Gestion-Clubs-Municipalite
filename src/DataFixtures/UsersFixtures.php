@@ -3,8 +3,9 @@
 namespace App\DataFixtures;
 
 use App\Entity\Users;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 
 class UsersFixtures extends Fixture  implements FixtureGroupInterface
 {
@@ -34,6 +35,6 @@ class UsersFixtures extends Fixture  implements FixtureGroupInterface
 
     public static function getGroups(): array
     {
-       return ['group1'];
+       return ['group3'];
     }
 }

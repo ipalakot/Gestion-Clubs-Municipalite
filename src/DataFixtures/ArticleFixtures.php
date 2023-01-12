@@ -78,4 +78,3 @@ class ArticleFixtures extends Fixture  implements FixtureGroupInterface
         return ['group1'];
      }
 }
-}
