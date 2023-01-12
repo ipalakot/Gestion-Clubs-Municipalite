@@ -3,8 +3,8 @@
 namespace App\Tests\Repository;
 
 use Liip\TestFixturesBundle\Test\FixturesTrait;
-use App\DataFixtures\UserFixtures;
-use App\Repository\UserRepository;
+use App\DataFixtures\UsersFixtures;
+use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class UserRepositoryTest extends KernelTestCase
@@ -22,10 +22,6 @@ class UserRepositoryTest extends KernelTestCase
         # Maintenant que j'ai le noyau je peux acceder au Container
          // $kermel->getContainer();
             $user = self::$container->get(UsersRepository::class)->count([]);
-            $this ->assertEquals(10, $users);
-    
-        //$this->assertSame('test', $kernel->getEnvironment());
-        //$routerService = self::$container->get('router');
-        //$myCustomService = self::$container->get(CustomService::class);
+            $this ->assertEquals(10, $user);
     }
 }
