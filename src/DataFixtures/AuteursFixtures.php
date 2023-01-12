@@ -7,7 +7,8 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 
-class UsersFixtures extends Fixture  implements FixtureGroupInterface
+
+class AuteursFixtures extends Fixture  implements FixtureGroupInterface
 {
     public function load(ObjectManager $manager): void
     {
