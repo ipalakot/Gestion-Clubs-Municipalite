@@ -6,7 +6,7 @@ use App\Entity\Users;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class UsersFixtures extends Fixture
+class UsersFixtures extends Fixture  implements FixtureGroupInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -30,5 +30,10 @@ class UsersFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public static function getGroups(): array
+    {
+       return ['group1'];
     }
 }
