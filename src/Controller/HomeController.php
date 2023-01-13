@@ -149,6 +149,8 @@ $executionTime = ($endTime - $startTime)*1000;
     public function coverage()
     {
         //La couverture des test de mon application
-        return $this->render('templates/test/coverage/index.html');
+        return $this->render('templates/test/coverage/index.html', [
+            'controller_name' => 'AuteurController']
+        );
     }
 }
