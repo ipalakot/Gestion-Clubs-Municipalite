@@ -2,11 +2,12 @@
 
 namespace App\Tests\Entity;
 use App\Entity\Categorie;
+use App\Entity\Article;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Loader\Configurator\validator;
 
-class CategorieTestPhpTest extends KernelTestCase
+class CategorieUniTest extends KernelTestCase
 {
 	public function testIsTrue()
     {
@@ -40,11 +41,11 @@ class CategorieTestPhpTest extends KernelTestCase
     }
     
     
-    public function testAddremoveSetArticles()
+    public function testAddremoveSetArticle()
     {        
         
         $categorie = new Categorie();
-        $article = new Articles();
+        $article = new Article();
 
         $this->assertEmpty($categorie->getArticle());
 
@@ -54,5 +55,4 @@ class CategorieTestPhpTest extends KernelTestCase
         $categorie->removeArticle($article);
         $this->assertEmpty($categorie->getArticle());
     }
-}
 }

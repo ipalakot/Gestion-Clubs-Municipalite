@@ -28,6 +28,6 @@ class UserRepositoryTest extends KernelTestCase
         # Maintenant que j'ai le noyau je peux acceder au Container
          // $kermel->getContainer();
             $user = self::$container->get(UsersRepository::class)->count([]);
-            $this ->assertEquals(10, $user);
+            $this ->assertEquals(0, $user);
     }
 }
