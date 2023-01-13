@@ -2,11 +2,19 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+
+use FOS\UserBundle\Model\Group;
 use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
+
+use Symfony\Component\Serializer\Serializer;
+
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\Routing\Annotation\Route;
-//use Symfony\Component\HttpFoundation\JsonResponse;
-//use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -131,36 +139,30 @@ class ApiArticleController extends AbstractController
         );
     }
 
-    /**
+/**
      *
-     * @Route("/add", name="artcle_ajout", methods={"POST"})
+     * @Route("/new", name="artcle_ajout", methods={"POST"})
      */
-    public function new(Request $request, SerializerInterface $serialializer, EntityManagerInterface $manager)
+    public function new(Request $request, SerializerInterface $serializer, EntityManagerInterface $manager)
     {
         
      #_1 Lecture de Contenu
         //Lecture du contenu de la requete HTTP
         // c'set bien sur du Json
-        $articleSent = $request->getContent();
-        //dd($articleSent);
+        $articleRecus = $request->getContent();
+        //dd($articlerecus);
 
-        #_2 deserialisation
-        // Prendre el Json et le tranformer en Entity
-        // deserialiser sur la forme de la class Article
-        // En partant du format Json
-        $articles  = $serialializer->deserialize($articleSent, Article::class, 'json');
-        // dd($articles);
-        
-        #_3 Appel de Mon Entity Managr
-        //Je persite alors le contenu dans la BD
-        // Sans oublier de setter la date
-        $articles->setCreatedAt(new\DateTime());
-        $manager->persist($articles);
+    #_2 deserialisation
+        //Transformer le Json en entity
+        // Ici nous tenoms en compte la description de la class Article
+
+        $articleRecus  = $serializer-> deserialize($articleRecus, Article::class, 'json');
+        //dd($articlerecus);
+        $articleRecus->setCreatedAt(new\DateTime());
+        $manager->persist($articleRecus);
         $manager->flush();
-        dd($articles);
+        dd($articleRecus);
 
-    
-        #_3 Envoi de reponse
-       // return $this-> json($articles, 200, [], ['groups'=> 'article:api']);
     }
+
 }

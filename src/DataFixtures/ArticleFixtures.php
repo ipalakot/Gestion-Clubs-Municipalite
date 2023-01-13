@@ -2,16 +2,20 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Article;
 use App\Entity\Auteur;
+use App\Entity\Article;
 use App\Entity\Categorie;
 use App\Entity\Commentaire;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
 use PhpParser\Node\Expr\New_;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 
-class ArticleFixtures extends Fixture
+
+
+
+class ArticleFixtures extends Fixture implements FixtureGroupInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -70,4 +74,10 @@ class ArticleFixtures extends Fixture
         }
         $manager->flush();
     }
+
+    
+    public static function getGroups(): array
+     {
+        return ['group1'];
+     }
 }

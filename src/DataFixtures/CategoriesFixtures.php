@@ -23,7 +23,7 @@ class CategoriesFixtures extends Fixture implements FixtureGroupInterface
 
             $faker = Faker\Factory::create('fr_FR');
             
-            for ($i = 0; $i < 10; $i++) 
+            for ($i = 0; $i < 20; $i++) 
             {
                 $categorie = new Categorie();
 
