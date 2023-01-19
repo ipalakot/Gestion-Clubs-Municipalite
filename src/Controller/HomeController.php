@@ -143,14 +143,4 @@ $executionTime = ($endTime - $startTime)*1000;
         // return $this->generateUrl('https://fr.wikipedia.org/wiki/Listes_des_communes_de_Francehome');
     }
 
-    /**
-     * @Route("/test/coverage", name="admin_coverage")
-     */
-    public function coverage()
-    {
-        //La couverture des test de mon application
-        return $this->render('templates/test/coverage/index.html', [
-            'controller_name' => 'AuteurController']
-        );
-    }
 }

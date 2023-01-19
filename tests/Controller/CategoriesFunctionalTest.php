@@ -23,7 +23,6 @@ class CategoriesFunctionalTest extends WebTestCase
         $this->assertclsertSelectorTextContains('h1', 'Liste des Categories');
     }
 
-
     public function testNewcategories(): void
     {
         $client = static::createClient();

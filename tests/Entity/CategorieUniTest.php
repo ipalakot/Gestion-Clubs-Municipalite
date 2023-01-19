@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Tests\Entity;
+
+use App\Entity\Article;
 use App\Entity\Categorie;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -38,16 +40,16 @@ class CategorieUniTest extends KernelTestCase
     public function testAddremoveSetArticles()
     {        
         
-        $categorie = new Categories();
-        $article = new Articles();
+        $categorie = new Categorie();
+        $article = new Article();
 
-        $this->assertEmpty($categorie->getArticle());
+        $this->assertEmpty($categorie->getArticles());
 
         $categorie->addArticle($article);
-        $this->assertContains($article, $categorie->getArticle());
+        $this->assertContains($article, $categorie->getArticles());
 
         $categorie->removeArticle($article);
-        $this->assertEmpty($categorie->getArticle());
+        $this->assertEmpty($categorie->getArticles());
     }
     
 }
