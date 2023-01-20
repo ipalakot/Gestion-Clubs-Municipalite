@@ -28,6 +28,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
         ]);
     }
 
+    
     /**
      * @Route("/triTitreAsc", name="app_categorie_tri_titre_asc")
      */
