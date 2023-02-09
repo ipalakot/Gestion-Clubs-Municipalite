@@ -17,7 +17,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 class CreateAdminCliCommand extends Command
 {
     protected static $defaultName = 'app:create-admin-cli';
-    protected static $defaultDescription = 'Adding a Admin by CLI Symfony';
     private EntityManagerInterface $entityManager;
 
 
@@ -31,11 +30,20 @@ class CreateAdminCliCommand extends Command
     protected function configure(): void
     {
         $this
+        
+        ->setDescription('Adding a Admin by CLI Symfony')
+        ->setHelp('Adding a Admin by CLI Symfony')
+        ->addOption('myOption', null, InputOption::VALUE_NONE, 'La Description de mon Option?')
+
         ->addArgument('noms', InputArgument::OPTIONAL, 'Noms: ')
         ->addArgument('prenoms', InputArgument::OPTIONAL, 'Prenoms')
         ->addArgument('login', InputArgument::OPTIONAL, 'Login de l admin')
         ->addArgument('email', InputArgument::OPTIONAL, 'Email')
-        ->addArgument('password', InputArgument::OPTIONAL, 'Password');
+        ->addArgument('password', InputArgument::OPTIONAL, 'Password')
+        
+
+
+        ;
 
         //->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
     ;
@@ -71,7 +79,7 @@ class CreateAdminCliCommand extends Command
             }
         $password = $input->getArgument('password');
             if (!$password) {
-                $question = new Question('Password de l\'admin : ');
+                $question = new Question('Le Password de l\'admin : ');
                 $password= $helper->ask($input, $output, $question);
             }
 
