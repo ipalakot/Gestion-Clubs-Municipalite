@@ -92,9 +92,6 @@
             "./config/routes/liip_imagine.yaml"
         ]
     },
-    "liip/test-fixtures-bundle": {
-        "version": "2.5.0"
-    },
     "mhujer/breadcrumbs-bundle": {
         "version": "1.5.3"
     },
