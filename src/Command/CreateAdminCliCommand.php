@@ -4,13 +4,15 @@ namespace App\Command;
 
 use App\Entity\User;
 //use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
-use Doctrine\ORM\EntityManagerInterface;
+
 
 class CreateAdminCliCommand extends Command
 {
@@ -41,13 +43,37 @@ class CreateAdminCliCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $helper = $this->getHelper('question');
         $io = new SymfonyStyle($input, $output);
 
         $noms = $input->getArgument('noms');
-        $prenoms = $input->getArgument('prenoms');;
+
+            if (!$noms) {
+                $question = new Question('Nom de l\'admin : ');
+                $noms = $helper->ask($input, $output, $question);
+            }
+
+        $prenoms = $input->getArgument('prenoms');
+            if (!$prenoms) {
+                $question = new Question('Prenoms de l\'admin : ');
+                $prenoms = $helper->ask($input, $output, $question);
+            }
+
         $login = $input->getArgument('login');
+            if (!$login) {
+                $question = new Question('Login de l\'admin : ');
+                $login = $helper->ask($input, $output, $question);
+            }
         $email = $input->getArgument('email');
+            if (!$email) {
+                $question = new Question('Email de l\'admin : ');
+                $email = $helper->ask($input, $output, $question);
+            }
         $password = $input->getArgument('password');
+            if (!$password) {
+                $question = new Question('Password de l\'admin : ');
+                $password= $helper->ask($input, $output, $question);
+            }
 
         $user = (new User())
                 ->setNoms($noms)
