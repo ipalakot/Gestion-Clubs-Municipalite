@@ -1,16 +1,9 @@
-#---Symfony-And-Docker-Makefile---------------#
+#---Symfony-Makefile---------------#
 # Author: https://github.com/ipalakot/Gestion-Clubs-Municipalite.git
 # License: gip-com.com
 #---------------------------------------------#
 
 #---VARIABLES---------------------------------#
-#---DOCKER---#
-DOCKER = docker
-DOCKER_RUN = $(DOCKER) run
-DOCKER_COMPOSE = docker compose
-DOCKER_COMPOSE_UP = $(DOCKER_COMPOSE) up -d
-DOCKER_COMPOSE_STOP = $(DOCKER_COMPOSE) stop
-#------------#
 
 #---SYMFONY--#
 SYMFONY = symfony
@@ -35,11 +28,6 @@ NPM_DEV = $(NPM) run dev
 NPM_WATCH = $(NPM) run watch
 #------------#
 
-#---PHPQA---#
-PHPQA = jakzal/phpqa
-PHPQA_RUN = $(DOCKER_RUN) --init -it --rm -v $(PWD):/project -w /project $(PHPQA)
-#------------#
-
 #---PHPUNIT-#
 PHPUNIT = APP_ENV=test $(SYMFONY) php bin/phpunit
 #------------#
@@ -55,15 +43,6 @@ help: ## Show this help.
 	@grep -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 #---------------------------------------------#
 
-## === 🐋  DOCKER ================================================
-docker-up: ## Start docker containers.
-	$(DOCKER_COMPOSE_UP)
-.PHONY: docker-up
-
-docker-stop: ## Stop docker containers.
-	$(DOCKER_COMPOSE_STOP)
-.PHONY: docker-stop
-#---------------------------------------------#
 
 ## === 🎛️  SYMFONY ===============================================
 sf: ## List and Use All Symfony commands (make sf command="commande-name").
@@ -195,51 +174,6 @@ npm-watch: ## Watch assets.
 .PHONY: npm-watch
 #---------------------------------------------#
 
-## === 🐛  PHPQA =================================================
-qa-cs-fixer-dry-run: ## Run php-cs-fixer in dry-run mode.
-	$(PHPQA_RUN) php-cs-fixer fix ./src --rules=@Symfony --verbose --dry-run
-.PHONY: qa-cs-fixer-dry-run
-
-qa-cs-fixer: ## Run php-cs-fixer.
-	$(PHPQA_RUN) php-cs-fixer fix ./src --rules=@Symfony --verbose
-.PHONY: qa-cs-fixer
-
-qa-phpstan: ## Run phpstan.
-	$(PHPQA_RUN) phpstan analyse ./src --level=7
-.PHONY: qa-phpstan
-
-qa-security-checker: ## Run security-checker.
-	$(SYMFONY) security:check
-.PHONY: qa-security-checker
-
-qa-phpcpd: ## Run phpcpd (copy/paste detector).
-	$(PHPQA_RUN) phpcpd ./src
-.PHONY: qa-phpcpd
-
-qa-php-metrics: ## Run php-metrics.
-	$(PHPQA_RUN) phpmetrics --report-html=var/phpmetrics ./src
-.PHONY: qa-php-metrics
-
-qa-lint-twigs: ## Lint twig files.
-	$(SYMFONY_LINT)twig ./templates
-.PHONY: qa-lint-twigs
-
-qa-lint-yaml: ## Lint yaml files.
-	$(SYMFONY_LINT)yaml ./config
-.PHONY: qa-lint-yaml
-
-qa-lint-container: ## Lint container.
-	$(SYMFONY_LINT)container
-.PHONY: qa-lint-container
-
-qa-lint-schema: ## Lint Doctrine schema.
-	$(SYMFONY_CONSOLE) doctrine:schema:validate --skip-sync -vvv --no-interaction
-.PHONY: qa-lint-schema
-
-qa-audit: ## Run composer audit.
-	$(COMPOSER) audit
-.PHONY: qa-audit
-#---------------------------------------------#
 
 ## === 🔎  TESTS =================================================
 tests: ## Run tests.

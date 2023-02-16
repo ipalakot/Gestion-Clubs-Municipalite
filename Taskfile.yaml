@@ -1,0 +1,240 @@
+# https://taskfile.dev
+
+version: '3'
+
+silent: true
+
+vars:
+  GREETING: "Hello, Welcome to Symfony And Docker Taskfile !"
+  PWD: $PWD
+
+  SYMFONY: symfony
+  SYMFONY_SERVER_START: "{{.SYMFONY}} server:start"
+  SYMFONY_SERVER_STOP: "{{.SYMFONY}} server:stop"
+  SYMFONY_CONSOLE: "{{.SYMFONY}} console"
+  SYMFONY_LINT: "{{.SYMFONY_CONSOLE}} lint:"
+  COMPOSER: composer
+  COMPOSER_INSTALL: "{{.COMPOSER}} install"
+  COMPOSER_UPDATE: "{{.COMPOSER}} update"
+
+  NPM: npm
+  NPM_INSTALL: "{{.NPM}} install --force"
+  NPM_UPDATE: "{{.NPM}} update"
+  NPM_BUILD: "{{.NPM}} run build"
+  NPM_DEV: "{{.NPM}} run dev"
+  NPM_WATCH: "{{.NPM}} run watch"
+  PHPQA: jakzal/phpqa
+  PHPQA_RUN: "{{.DOCKER_RUN}} --init -it --rm -v {{.PWD}}:/project -w /project {{.PHPQA}}"
+  PHPUNIT: "APP_ENV=test {{.SYMFONY}} php bin/phpunit"
+
+tasks:
+  default:
+    cmds:
+      - task: help
+
+  help:
+    desc: Display this help
+    cmds:
+      - echo "{{.GREETING}}"
+      - task --list
+ 
+  sf-start:
+    desc: "Start symfony server"
+    cmds:
+      - "{{.SYMFONY_SERVER_START}}"
+    
+  sf-stop:
+    desc: "Stop symfony server"
+    cmds:
+      - "{{.SYMFONY_SERVER_STOP}}"
+    
+  sf-cc:
+    desc: "Clear symfony cache"
+    cmds:
+      - "{{.SYMFONY_CONSOLE}} cache:clear"
+    
+  sf-log:
+    desc: "Display symfony logs"
+    cmds:
+      - "{{.SYMFONY_CONSOLE}} server:log"
+    
+  sf-dc:
+    desc: "Create symfony database"
+    cmds:
+      - "{{.SYMFONY_CONSOLE}} doctrine:database:create --if-not-exists"
+    
+  sf-dd:
+    desc: "Drop symfony database"
+    cmds:
+      - "{{.SYMFONY_CONSOLE}} doctrine:database:drop --if-exists --force"
+    
+  sf-dc:
+    desc: "Update symfony schema database"
+    cmds:
+      - "{{.SYMFONY_CONSOLE}} doctrine:schema:update --force"  
+
+  sf-mm:
+    desc: "Make symfony migration"
+    cmds:
+      - "{{.SYMFONY_CONSOLE}} make:migration"
+    
+  sf-dmm:
+    desc: "Migrate"
+    cmds:
+      - "{{.SYMFONY_CONSOLE}} doctrine:migrations:migrate --no-interaction"
+    
+  sf-fixtures:
+    desc: "Load fixtures"
+    cmds:
+      - "{{.SYMFONY_CONSOLE}} doctrine:fixtures:load --no-interaction"
+
+  sf-me:
+    desc: "Make entity"
+    cmds:
+      - "{{.SYMFONY_CONSOLE}} make:entity"  
+
+  sf-mc:
+    desc: "Make controller"
+    cmds:
+      - "{{.SYMFONY_CONSOLE}} make:controller"  
+
+  sf-mf:
+    desc: "Make form"
+    cmds:
+      - "{{.SYMFONY_CONSOLE}} make:form"  
+
+  sf-perm:
+    desc: "Fix permissions"
+    cmds:
+      - "chmod -R 777 var"
+    
+  sf-sudo-perm:
+    desc: "Fix permissions with sudo"
+    cmds:
+      - "sudo chmod -R 777 var"
+    
+  sf-dump-env:
+    desc: "Dump env"
+    cmds:
+      - "{{.SYMFONY_CONSOLE}} debug:dotenv"
+    
+  sf-dump-env-container:
+    desc: "Dump env container"
+    cmds:
+      - "{{.SYMFONY_CONSOLE}} debug:container --env-vars"
+    
+  sf-dump-router:
+    desc: "Dump routes"
+    cmds:
+      - "{{.SYMFONY_CONSOLE}} debug:router"
+    
+  sf-open:
+    desc: "Open symfony server"
+    cmds:
+      - "{{.SYMFONY}} open:local"
+    
+  sf-check-requirements:
+    desc: "Check symfony requirements"
+    cmds:
+      - "{{.SYMFONY}} check:requirements"
+    
+  composer-install:
+    desc: "Install composer dependencies"
+    cmds:
+      - "{{.COMPOSER_INSTALL}}"
+
+  composer-update:
+    desc: "Update composer dependencies"
+    cmds:
+      - "{{.COMPOSER_UPDATE}}"
+
+  composer-validate:
+    desc: Validate composer.json file.
+    cmds:
+      - "{{.COMPOSER}} validate"
+
+  composer-validate-deep:
+    desc: Validate composer.json and composer.lock files in strict mode.
+    cmds:
+      - "{{.COMPOSER}} validate --strict --check-lock"
+
+  npm-install:
+    desc: "Install npm dependencies"
+    cmds:
+      - "{{.NPM_INSTALL}}"
+  
+  npm-update:
+    desc: "Update npm dependencies"
+    cmds:
+      - "{{.NPM_UPDATE}}"
+
+  npm-build:
+    desc: "Build assets"
+    cmds:
+      - "{{.NPM_BUILD}}"
+
+  npm-dev:
+    desc: "Build assets in dev mode"
+    cmds:
+      - "{{.NPM_DEV}}"
+
+  npm-watch:
+    desc: "Watch assets"
+    cmds:
+      - "{{.NPM_WATCH}}"
+  
+  tests:
+    desc: "Run tests"
+    cmds:
+      - "{{.PHPUNIT}} --testdox"
+
+  tests-coverage:
+    desc: "Run tests with coverage"
+    cmds:
+      - "{{.PHPUNIT}} --coverage-html var/coverage"
+
+  before-commit:
+    desc: "Run before commit"
+    cmds:
+      - task: qa-cs-fixer
+      - task: qa-phpstan
+      - task: qa-security-checker
+      - task: qa-phpcpd
+      - task: qa-lint-twigs
+      - task: qa-lint-yaml
+      - task: qa-lint-container
+      - task: qa-lint-schema
+      - task: tests
+  
+  first-install:
+    desc: "First install"
+    cmds:
+      - task: docker-up
+      - task: composer-install
+      - task: npm-install
+      - task: npm-build
+      - task: sf-perm
+      - task: sf-dc
+      - task: sf-dmm
+      - task: sf-start
+      - task: sf-open
+
+  start:
+    desc: "Start"
+    cmds:
+      - tasl: docker-up
+      - task: sf-start
+      - task: sf-open
+
+  stop:
+    desc: "Stop"
+    cmds:
+      - task: sf-stop
+      - task: docker-stop
+
+  reset-db:
+    desc: "Reset database"
+    cmds:
+      - task: sf-dd
+      - task: sf-dc
+      - task: sf-dmm
