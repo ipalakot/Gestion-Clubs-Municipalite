@@ -1,3 +1,6 @@
 parameters:
 	excludes_analyse:
 		- src/api/*
+
+	doctrine:
+		objectManagerLoader: tests/phpstan/manager.php
